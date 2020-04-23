@@ -52,7 +52,8 @@ const AppUnlogged = () => {
                 {
                     palette: {
                         background: { default: "#121212" },
-                        type: prefersDarkMode ? "dark" : "light",
+                        //type: prefersDarkMode ? "dark" : "light",
+                        type: "dark",
                         text: {
                             primary: "#ffffff",
                             secondary: "rgba(255, 255, 255, 0.7)"
@@ -136,7 +137,8 @@ const AppLogged = () => {
                 {
                     palette: {
                         background: { default: "#121212" },
-                        type: prefersDarkMode ? "dark" : "light",
+                        //type: prefersDarkMode ? "dark" : "light",
+                        type: "dark",
                         text: {
                             primary: "#ffffff",
                             secondary: "rgba(255, 255, 255, 0.7)"
