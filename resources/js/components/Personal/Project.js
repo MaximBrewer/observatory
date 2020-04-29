@@ -1,3 +1,8 @@
+
+import {
+    BrowserRouter as Router,
+    Redirect,
+} from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import clsx from "clsx";
@@ -118,6 +123,10 @@ export default function Projects(props) {
     const [state, setState] = React.useState({
         columns: [
             {
+                title: window.__("Article"),
+                field: "article"
+            },
+            {
                 title: window.__("Title"),
                 field: "title"
             },
@@ -153,15 +162,6 @@ export default function Projects(props) {
                 title: window.__("Frequency, hours"),
                 field: "frequency",
                 type: "numeric"
-            },
-            {
-                title: window.__("Show history"),
-                editable: "never",
-                render: rowData => (
-                    <Link to={`/personal/project/${props.match.params.projectId}/products/${rowData.id}`}>
-                        <CameraIcon className={classes.icon} />
-                    </Link>
-                )
             }
         ],
         data: []
@@ -195,10 +195,7 @@ export default function Projects(props) {
         }).then(() => {
             if (!!elem.files[0]) {
                 let formData = new FormData();
-                formData.append(
-                    "file",
-                    elem.files[0]
-                );
+                formData.append("file", elem.files[0]);
                 axios
                     .post(
                         "/api/project/" + props.match.params.projectId + "/xls",
@@ -253,6 +250,18 @@ export default function Projects(props) {
                         columns={state.columns}
                         data={state.data}
                         className={classes.table}
+                        actions={[
+                            {
+                                icon: "camera",
+                                tooltip: __("Show History"),
+                                onClick: (event, rowData) => {
+                                    location.href=`/personal/project/${props.match.params.projectId}/products/${rowData.id}`
+                                }
+                            }
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1
+                        }}
                         localization={{
                             pagination: {
                                 labelDisplayedRows:

@@ -12,7 +12,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'project_id', 'url',
+        'title', 'project_id', 'url', 'article',
         'price', 'higher_deviation', 'lower_deviation', 'frequency'
     ];
 
@@ -38,7 +38,7 @@ class Product extends Model
 
     public function setLowerDeviationAttribute($value)
     {
-        $this->attributes['lower_deviation'] = ceil($value * 100);
+        $this->attributes['lower_deviation'] = ceil((float)$value * 100);
     }
 
     public function getLowerDeviationAttribute($value)
@@ -48,7 +48,7 @@ class Product extends Model
 
     public function setHigherDeviationAttribute($value)
     {
-        $this->attributes['higher_deviation'] = ceil($value * 100);
+        $this->attributes['higher_deviation'] = ceil((float)$value * 100);
     }
 
     public function getHigherDeviationAttribute($value)
@@ -58,7 +58,7 @@ class Product extends Model
 
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = ceil($value * 100);
+        $this->attributes['price'] = ceil((float)$value * 100);
     }
 
     public function getPriceAttribute($value)

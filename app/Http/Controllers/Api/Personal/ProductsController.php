@@ -53,6 +53,7 @@ class ProductsController extends Controller
         $worksheet = $spreadsheet->getActiveSheet();
 
         $keysList = [
+            'article',
             'title',
             'price',
             'url',
@@ -77,12 +78,13 @@ class ProductsController extends Controller
             if ($start)
                 Product::create([
                     'project_id' => $project->id,
-                    'title' => $productArray[0],
-                    'price' => $productArray[1],
-                    'url' => $productArray[2],
-                    'higher_deviation' => $productArray[3] ? $productArray[3] : $project->deviation,
-                    'lower_deviation' => $productArray[4] ? $productArray[4] : $project->deviation,
-                    'frequency' => $productArray[5] ? $productArray[5] : $project->frequency,
+                    'article' => $productArray[0],
+                    'title' => $productArray[1],
+                    'price' => $productArray[2],
+                    'url' => $productArray[3],
+                    'higher_deviation' => $productArray[4] ? $productArray[4] : $project->deviation,
+                    'lower_deviation' => $productArray[5] ? $productArray[5] : $project->deviation,
+                    'frequency' => $productArray[6] ? $productArray[6] : $project->frequency,
                 ]);
             $start++;
         }
@@ -100,6 +102,7 @@ class ProductsController extends Controller
     public function store(Request $request, $project_id)
     {
         Product::create([
+            'article' => $request->post('article'),
             'title' => $request->post('title'),
             'url' => $request->post('url'),
             'price' => $request->post('price'),

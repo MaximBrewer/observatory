@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./resources/js/auth/LoginPage.js":
-/*!****************************************!*\
-  !*** ./resources/js/auth/LoginPage.js ***!
-  \****************************************/
+/***/ "./resources/js/auth/PasswordResetForm.js":
+/*!************************************************!*\
+  !*** ./resources/js/auth/PasswordResetForm.js ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LoginPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PasswordResetPage; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -22,8 +22,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/Checkbox */ "./node_modules/@material-ui/core/esm/Checkbox/index.js");
 /* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/lab/Alert */ "./node_modules/@material-ui/lab/esm/Alert/index.js");
 /* harmony import */ var _material_ui_core_Collapse__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Collapse */ "./node_modules/@material-ui/core/esm/Collapse/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _material_ui_core_Link__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Link */ "./node_modules/@material-ui/core/esm/Link/index.js");
+/* harmony import */ var _material_ui_core_Link__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/Link */ "./node_modules/@material-ui/core/esm/Link/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
 /* harmony import */ var _material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Box */ "./node_modules/@material-ui/core/esm/Box/index.js");
 /* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/esm/Grid/index.js");
@@ -71,7 +71,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_18__["m
     image: {
       backgroundImage: "url(https://source.unsplash.com/random)",
       backgroundRepeat: "no-repeat",
-      backgroundColor: theme.palette.type === "light" ? theme.palette.grey[500] : theme.palette.grey[50],
+      backgroundColor: theme.palette.type === "dark" ? theme.palette.grey[900] : theme.palette.grey[50],
       backgroundSize: "cover",
       backgroundPosition: "center"
     },
@@ -95,21 +95,21 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_18__["m
     }
   };
 });
-function LoginPage() {
+function PasswordResetPage() {
   var classes = useStyles();
-  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["useHistory"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+    email: {
+      value: !!window.email_fp ? window.email_fp : null,
+      errors: null
+    },
+    password_confirmation: {
+      value: null,
+      errors: null
+    },
     password: {
       value: null,
       errors: null
-    },
-    email: {
-      value: null,
-      errors: null
-    },
-    remember: {
-      checked: false
     },
     errors: null
   }),
@@ -119,13 +119,6 @@ function LoginPage() {
 
   function handleChange(event) {
     setAuthState({
-      password: event.target.name != "password" ? {
-        value: auth.password.value,
-        errors: auth.password.errors
-      } : {
-        value: event.target.value,
-        errors: !event.target.value ? [__("Field is required!")] : null
-      },
       email: event.target.name != "email" ? {
         value: auth.email.value,
         errors: auth.email.errors
@@ -133,8 +126,19 @@ function LoginPage() {
         value: event.target.value,
         errors: !event.target.value ? [__("Field is required!")] : null
       },
-      remember: {
-        checked: event.target.name != "remember" ? auth.remember.checked : event.target.checked
+      password: event.target.name != "password" ? {
+        value: auth.password.value,
+        errors: auth.password.errors
+      } : {
+        value: event.target.value,
+        errors: !event.target.value ? [__("Field is required!")] : null
+      },
+      password_confirmation: event.target.name != "password_confirmation" ? {
+        value: auth.password_confirmation.value,
+        errors: auth.password_confirmation.errors
+      } : {
+        value: event.target.value,
+        errors: !event.target.value ? [__("Field is required!")] : null
       },
       errors: null
     });
@@ -143,49 +147,47 @@ function LoginPage() {
   function handleSubmit(event) {
     event.preventDefault();
     setAuthState({
-      password: {
-        value: auth.password.value,
-        errors: !auth.password.value ? [__("Field is required!")] : auth.password.errors
-      },
       email: {
         value: auth.email.value,
         errors: !auth.email.value ? [__("Field is required!")] : auth.email.errors
       },
-      remember: {
-        checked: auth.remember.checked
+      password: {
+        value: auth.password.value,
+        errors: !auth.password.value ? [__("Field is required!")] : auth.password.errors
+      },
+      password_confirmation: {
+        value: auth.password_confirmation.value,
+        errors: !auth.password_confirmation.value ? [__("Field is required!")] : auth.password_confirmation.errors
       },
       errors: auth.errors
     });
 
-    if (auth.email.value && auth.password.value) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/login", {
+    if (auth.email.value) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/password/reset", {
         email: auth.email.value,
         password: auth.password.value,
-        remember: auth.remember.checked
+        token: window.token_fp,
+        password_confirmation: auth.password_confirmation.value
       }).then(function (res) {
         if (res.data) {
-          window.auth.login(res.data.token, res.data.user);
-          if (res.data.redirectTo) location.href = res.data.redirectTo;
-          history.push("/");
-          location.href = "/";
+          location.href = '/personal';
         }
       })["catch"](function (err) {
-        console.log(err);
-
-        if (err.response && err.response.data) {
-          if (err.response.data.errors) setAuthState({
-            password: {
-              value: auth.password.value,
-              errors: err.response.data.errors.password
-            },
-            email: {
-              value: auth.email.value,
-              errors: err.response.data.errors.email
-            },
-            remember: auth.remember,
-            errors: [err.response.data.message]
-          });
-        }
+        if (err.response && err.response.data && err.response.data.errors) setAuthState({
+          email: {
+            value: auth.email.value,
+            errors: err.response.data.errors.email
+          },
+          password: {
+            value: auth.password.value,
+            errors: err.response.data.errors.password
+          },
+          password_confirmation: {
+            value: auth.password_confirmation.value,
+            errors: err.response.data.errors.password_confirmation
+          },
+          errors: [err.response.data.message]
+        });
       });
     }
   }
@@ -215,72 +217,70 @@ function LoginPage() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_15___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_16__["default"], {
     component: "h1",
     variant: "h5"
-  }, __("Sign in")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+  }, __("Reset Password")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: classes.form,
     noValidate: true,
     onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "hidden",
+    name: "token",
+    value: window.token_fp
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "outlined",
     margin: "normal",
     required: true,
     fullWidth: true,
+    value: auth.email.value,
     id: "email",
+    readOnly: true,
     error: !!auth.email.errors && !!auth.email.errors.length,
     helperText: !!auth.email.errors && !!auth.email.errors.length ? auth.email.errors.join(", ") : "",
     label: __("E-mail"),
     name: "email",
     type: "text",
-    autoFocus: true,
+    autoFocus: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    variant: "outlined",
+    margin: "normal",
+    required: true,
+    fullWidth: true,
+    name: "password",
+    error: !!auth.password.errors && !!auth.password.errors.length,
+    helperText: !!auth.password.errors && !!auth.password.errors.length ? auth.password.errors.join(", ") : "",
+    label: __("Password"),
+    type: "password",
+    id: "password",
+    autoComplete: "new-password",
     onChange: handleChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "outlined",
     margin: "normal",
     required: true,
     fullWidth: true,
-    id: "password",
-    error: !!auth.password.errors && !!auth.password.errors.length,
-    helperText: !!auth.password.errors && !!auth.password.errors.length ? auth.password.errors.join(", ") : "",
-    label: __("Password"),
-    name: "password",
+    error: !!auth.password_confirmation.errors && !!auth.password_confirmation.errors.length,
+    helperText: !!auth.password_confirmation.errors && !!auth.password_confirmation.errors.length ? auth.password_confirmation.errors.join(", ") : "",
+    name: "password_confirmation",
+    label: __("Confirm password"),
     type: "password",
-    autoFocus: true,
+    id: "passwordConfirm",
+    autoComplete: "new-password",
     onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    control: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      name: "remember",
-      value: "Y",
-      color: "primary",
-      defaultChecked: auth.remember.cheked,
-      onChange: handleChange
-    }),
-    label: __("Remember me")
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
     color: "primary",
     className: classes.submit
-  }, __("Sign In")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    container: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    item: true,
-    xs: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    component: react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"],
-    to: "/password/reset",
-    href: "#",
-    variant: "body2"
-  }, __("Forgot password?"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    component: react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"],
-    to: "/register",
-    href: "#",
-    variant: "body2"
-  }, __("Don't have an account? Sign Up")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, __("Reset Password")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
     mt: 5
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_layouts_Copyright__WEBPACK_IMPORTED_MODULE_17__["default"], null))))));
 }
+
+var AlertSuccess = function AlertSuccess() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    severity: "success"
+  }, __("Мы отправили вам ссылку для сброса пароля по электронной почте!"));
+};
 
 /***/ })
 
