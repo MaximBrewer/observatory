@@ -34,7 +34,7 @@ import PersonalIndex from "./Personal/Index";
 import PersonalProduct from "./Personal/Product";
 import PersonalProjects from "./Personal/Projects";
 import PersonalProject from "./Personal/Project";
-import PersonalEstimate from "./Personal/Estimate";
+import PersonalFolder from "./Personal/Folder";
 import PersonalProfile from "./Personal/Profile";
 
 function Copyright() {
@@ -233,9 +233,10 @@ export default function Personal() {
                             path="/personal/projects/:projectId"
                             component={PersonalProject}
                         />
-                        {/* <Route path="/personal/estimate/:estimateId">
-                            <PersonalEstimate />
-                        </Route> */}
+                        <Route
+                            path="/personal/folders/:folderId"
+                            component={PersonalFolder}
+                        />
                     </Switch>
                 </Container>
             </main>

@@ -134,7 +134,7 @@ export default function Projects(props) {
                 title: window.__("Url"),
                 field: "url",
                 render: rowData => (
-                    <Link to={`${rowData.url}`}>{rowData.url}</Link>
+                    <a target="_blank" href={rowData.url}>{rowData.url}</a>
                 )
             },
             {
@@ -145,6 +145,12 @@ export default function Projects(props) {
             {
                 title: window.__("Last price"),
                 field: "last_price",
+                disabled: true,
+                editable: "never"
+            },
+            {
+                title: window.__("Site Deviation, %"),
+                field: "deviation",
                 disabled: true,
                 editable: "never"
             },

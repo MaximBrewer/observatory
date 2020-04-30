@@ -20,7 +20,8 @@ class Product extends JsonResource
             'article' => $this->article,
             'url' => $this->url,
             'price' => $this->price,
-            'last_price' => $this->last_price,
+            'last_price' => $this->last_price ? $this->last_price : 'N/A',
+            'deviation' => (float)$this->last_price ? ($this->price * 100 - $this->last_price * 100) / $this->price : 'N/A',
             'project' => [
                 'id' => $this->project->id,
                 'title' => $this->project->title

@@ -16,9 +16,12 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('site_id');
-            $table->integer('deviation');
+            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('folder_id')->nullable();
+            $table->integer('higher_deviation');
+            $table->integer('lower_deviation');
+            $table->enum('visibility', ['public', 'private']);
             $table->integer('frequency');
             $table->timestamps();
             $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');

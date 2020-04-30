@@ -42,7 +42,8 @@ class ProjectsController extends Controller
         $project = Project::create([
             'title' => $request->post('title'),
             'site_id' => $request->post('site_id'),
-            'deviation' => $request->post('deviation'),
+            'higher_deviation' => $request->post('higher_deviation'),
+            'lower_deviation' => $request->post('lower_deviation'),
             'frequency' => $request->post('frequency'),
             'user_id' => Auth::user()->id,
         ]);

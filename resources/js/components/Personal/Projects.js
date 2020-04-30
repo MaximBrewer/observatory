@@ -119,9 +119,20 @@ export default function Projects() {
                 )
             },
             {
-                title: window.__("Deviation, %"),
-                field: "deviation",
-                type: 'numeric'
+                title: window.__("Manager"),
+                field: "user.title",
+                disabled: true,
+                editable: "never"
+            },
+            {
+                title: window.__("Deviation, +%"),
+                field: "higher_deviation",
+                type: "numeric"
+            },
+            {
+                title: window.__("Deviation, -%"),
+                field: "lower_deviation",
+                type: "numeric"
             },
             {
                 title: window.__("Frequency, hours"),

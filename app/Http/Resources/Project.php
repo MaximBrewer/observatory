@@ -21,8 +21,13 @@ class Project extends JsonResource
                 'id' => $this->site->id,
                 'title' => $this->site->title
             ],
+            'user' => [
+                'id' => $this->user->id,
+                'title' => $this->user->profile->firstname . ' ' . $this->user->profile->lastname
+            ],
             'site_id' => $this->site->id,
-            'deviation' => $this->deviation,
+            'higher_deviation' => $this->higher_deviation,
+            'lower_deviation' => $this->lower_deviation,
             'frequency' => $this->frequency,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
