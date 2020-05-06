@@ -51,33 +51,33 @@ const AppUnlogged = () => {
             createMuiTheme(
                 {
                     palette: {
-                        background: { default: "#121212" },
+                        // background: { default: "#121212" },
                         //type: prefersDarkMode ? "dark" : "light",
-                        type: "dark",
-                        text: {
-                            primary: "#ffffff",
-                            secondary: "rgba(255, 255, 255, 0.7)"
-                        },
-                        primary: {
-                            main: "#90caf9"
-                        },
-                        action: {
-                            active: "#fff",
-                            hover: "rgba(255, 255, 255, 0.08)",
-                            hoverOpacity: 0.08,
-                            selected: "rgba(255, 255, 255, 0.16)",
-                            selectedOpacity: 0.16,
-                            disabled: "rgba(255, 255, 255, 0.3)",
-                            disabledBackground: "rgba(255, 255, 255, 0.12)",
-                            disabledOpacity: 0.38,
-                            focus: "rgba(255, 255, 255, 0.12)",
-                            focusOpacity: 0.12,
-                            activatedOpacity: 0.24
-                        }
+                        type: "light",
+                        // text: {
+                        //     primary: "#444444",
+                        //     secondary: "rgba(255, 255, 255, 0.7)"
+                        // },
+                        // primary: {
+                        //     main: "#90caf9"
+                        // },
+                        // action: {
+                        //     active: "#fff",
+                        //     hover: "rgba(255, 255, 255, 0.08)",
+                        //     hoverOpacity: 0.08,
+                        //     selected: "rgba(255, 255, 255, 0.16)",
+                        //     selectedOpacity: 0.16,
+                        //     disabled: "rgba(255, 255, 255, 0.3)",
+                        //     disabledBackground: "rgba(255, 255, 255, 0.12)",
+                        //     disabledOpacity: 0.38,
+                        //     focus: "rgba(255, 255, 255, 0.12)",
+                        //     focusOpacity: 0.12,
+                        //     activatedOpacity: 0.24
+                        // }
                     },
                     listItem: {
                         textDecoration: "none",
-                        color: "#fff"
+                        // color: "#fff"
                     }
                 },
                 ruRU
@@ -136,33 +136,32 @@ const AppLogged = () => {
             createMuiTheme(
                 {
                     palette: {
-                        background: { default: "#121212" },
-                        //type: prefersDarkMode ? "dark" : "light",
-                        type: "dark",
-                        text: {
-                            primary: "#ffffff",
-                            secondary: "rgba(255, 255, 255, 0.7)"
-                        },
-                        primary: {
-                            main: "#90caf9"
-                        },
-                        action: {
-                            active: "#fff",
-                            hover: "rgba(255, 255, 255, 0.08)",
-                            hoverOpacity: 0.08,
-                            selected: "rgba(255, 255, 255, 0.16)",
-                            selectedOpacity: 0.16,
-                            disabled: "rgba(255, 255, 255, 0.3)",
-                            disabledBackground: "rgba(255, 255, 255, 0.12)",
-                            disabledOpacity: 0.38,
-                            focus: "rgba(255, 255, 255, 0.12)",
-                            focusOpacity: 0.12,
-                            activatedOpacity: 0.24
-                        }
+                        // background: { default: "#121212" },
+                        // //type: prefersDarkMode ? "dark" : "light",
+                        type: "light",
+                        // text: {
+                        //     primary: "#ffffff",
+                        //     secondary: "rgba(255, 255, 255, 0.7)"
+                        // },
+                        // primary: {
+                        //     main: "#90caf9"
+                        // },
+                        // action: {
+                        //     active: "#fff",
+                        //     hover: "rgba(255, 255, 255, 0.08)",
+                        //     hoverOpacity: 0.08,
+                        //     selected: "rgba(255, 255, 255, 0.16)",
+                        //     selectedOpacity: 0.16,
+                        //     disabled: "rgba(255, 255, 255, 0.3)",
+                        //     disabledBackground: "rgba(255, 255, 255, 0.12)",
+                        //     disabledOpacity: 0.38,
+                        //     focus: "rgba(255, 255, 255, 0.12)",
+                        //     focusOpacity: 0.12,
+                        //     activatedOpacity: 0.24
+                        // }
                     },
                     listItem: {
-                        textDecoration: "none",
-                        color: "#fff"
+                        textDecoration: "und"
                     }
                 },
                 ruRU

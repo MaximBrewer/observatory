@@ -60,7 +60,7 @@ export default function EmailVerifyPage() {
     function handleSubmit(event) {
         event.preventDefault();
         axios
-            .post(`/email/resend`)
+            .post(`/api/email/resend`)
             .then(res => {
                 setSentState(true);
             })

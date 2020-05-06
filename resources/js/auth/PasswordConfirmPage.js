@@ -130,7 +130,7 @@ export default function PasswordConfirmPage() {
         if (auth.password.value && auth.password.value) {
           console.log(auth);
             axios
-                .post(`/login`, {
+                .post(`/api/login`, {
                     email: auth.email.value,
                     password: auth.password.value,
                     remember: auth.remember.checked

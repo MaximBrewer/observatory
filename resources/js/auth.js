@@ -31,6 +31,7 @@ class Auth {
         this.user = null;
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
+        location.reload();
     }
 }
 export default Auth;

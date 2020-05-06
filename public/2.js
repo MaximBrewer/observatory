@@ -105,7 +105,7 @@ function EmailVerifyPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/email/resend").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/email/resend").then(function (res) {
       setSentState(true);
     })["catch"](function (err) {});
   }

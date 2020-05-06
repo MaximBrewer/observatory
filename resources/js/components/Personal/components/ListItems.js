@@ -1,13 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import {
+    Folder as FolderIcon,
+    Dashboard as DashboardIcon,
+    CreateNewFolder as CreateNewFolderIcon,
+    Dehaze as DehazeIcon
+} from "@material-ui/icons";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
@@ -25,11 +30,20 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useConfirm } from "material-ui-confirm";
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+    listItem: {
+        textDecoration: "none",
+        cursor: "pointer",
+        color: theme.listItem.color,
+        "&:hover": {
+            textDecoration: "none"
+        }
+    }
+}));
 
 export default function ListItems() {
-    const classes = useStyles();
     const confirm = useConfirm();
+    const classes = useStyles();
 
     const [folder, setFolder] = React.useState("");
     const [open, setOpen] = React.useState(false);
@@ -83,7 +97,13 @@ export default function ListItems() {
 
     const deleteFolder = id => {
         confirm({
-            description: __("Are you shure?")
+            title: __("Are you shure?"),
+            description: __("Are you sure you want to delete the folder?"),
+            confirmationText: __("Ok"),
+            cancellationText: __("Cancel"),
+            dialogProps: {},
+            confirmationButtonProps: {},
+            cancellationButtonProps: {}
         }).then(() => {
             window.api
                 .call("delete", "/api/folders/" + id)
@@ -112,7 +132,7 @@ export default function ListItems() {
             .then(res => {
                 history.entries = [];
                 history.index = -1;
-                window.location.href = "/";
+                window.auth.logout();
             })
             .catch(err => {
                 if (
@@ -123,8 +143,10 @@ export default function ListItems() {
                 }
             });
     };
+    console.log(classes.listItem);
     return (
         <div>
+            <CssBaseline />
             <LinkUI
                 to="/personal"
                 component={Link}
@@ -146,7 +168,7 @@ export default function ListItems() {
                 >
                     <ListItem button>
                         <ListItemIcon>
-                            <BarChartIcon />
+                            <FolderIcon />
                         </ListItemIcon>
                         <ListItemText primary={folder.title} />
                         <span
@@ -161,7 +183,7 @@ export default function ListItems() {
             ))}
             <ListItem button onClick={addFolder}>
                 <ListItemIcon>
-                    <DashboardIcon />
+                    <CreateNewFolderIcon />
                 </ListItemIcon>
                 <ListItemText primary={window.__("Add Folder")} />
             </ListItem>
@@ -172,7 +194,7 @@ export default function ListItems() {
             >
                 <ListItem button>
                     <ListItemIcon>
-                        <BarChartIcon />
+                        <DehazeIcon />
                     </ListItemIcon>
                     <ListItemText primary={window.__("All Projects")} />
                 </ListItem>
@@ -208,19 +230,13 @@ export default function ListItems() {
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >
-                <DialogTitle id="form-dialog-title">
-                    {__("Add Folder")}
-                </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        {__("Type Folder Name")}
-                    </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         value={folder}
                         onChange={onChange}
-                        label="Folder"
+                        label={__("Folder")}
                         type="text"
                         fullWidth
                     />

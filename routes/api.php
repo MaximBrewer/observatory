@@ -19,11 +19,15 @@ use App\Site;
 */
 
 Route::post('/register', 'Api\Auth\RegisterController@register');
+Route::post('/password/email', 'Api\Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('/login', 'Api\Auth\LoginController@login');
 Route::get('/companies', function(){
     return ['companies' => CompanyResource::collection(Company::all())];
 });
 
+Route::post('/password/email', 'Api\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('/password/reset', 'Api\Auth\ResetPasswordController@reset')->name('password.update');
+Route::post('/password/confirm', 'Api\Auth\ConfirmPasswordController@confirm');
 
 
 Route::middleware('auth:api')->group(function () {

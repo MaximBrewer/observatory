@@ -160,7 +160,7 @@ function PasswordConfirmPage() {
 
     if (auth.password.value && auth.password.value) {
       console.log(auth);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/login", {
         email: auth.email.value,
         password: auth.password.value,
         remember: auth.remember.checked

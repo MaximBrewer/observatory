@@ -137,7 +137,7 @@ export default function PasswordResetPage() {
         });
         if (auth.email.value) {
             axios
-                .post(`/password/reset`, {
+                .post(`/api/password/reset`, {
                     email: auth.email.value,
                     password: auth.password.value,
                     token: window.token_fp,

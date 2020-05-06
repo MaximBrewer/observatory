@@ -21,18 +21,7 @@ Route::get('password/reset', 'SpaController@index')->name('password.request');
 Route::get('password/reset/{token}', 'SpaController@index')->middleware(['addtokenemailtoscript'])->name('password.reset');
 Route::get('password/confirm', 'SpaController@index')->name('password.confirm');
 Route::get('email/verify', 'SpaController@index')->name('verification.notice');
-
-// Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-
-// Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
-// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-// Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-// Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
-
-// Route::post('login', 'Auth\LoginController@login');
-// Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-// Route::post('register', 'Auth\RegisterController@register');
+Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
 
 Route::get('/', 'SpaController@index')->name('index');

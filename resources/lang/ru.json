@@ -59,12 +59,13 @@
     "Upload Excell": "Загрузить Excell",
     "Site price, ₽": "Цена на сайте, ₽",
     "Product History": "Лог изменения",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "Folder": "Папка",
+    "Add Folder": "Добавить папку",
+    "All Projects": "Нераспределенное",
+    "Type Folder Name": "Введите название",
+    "Add": "Добавить",
+    "Are you shure?": "Вы уверены?",
+    "Ok": "Да",
+    "Cancel": "Отмена",
+    "Are you sure you want to delete the folder?": "Вы уверены что хотите удалить папку?"
 }

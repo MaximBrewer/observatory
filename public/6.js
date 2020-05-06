@@ -138,7 +138,7 @@ function PasswordResetPage() {
     });
 
     if (auth.email.value) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/password/email", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/password/email", {
         email: auth.email.value
       }).then(function (res) {
         if (res.data) {

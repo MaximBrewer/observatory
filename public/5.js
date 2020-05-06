@@ -163,7 +163,7 @@ function PasswordResetPage() {
     });
 
     if (auth.email.value) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/password/reset", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/password/reset", {
         email: auth.email.value,
         password: auth.password.value,
         token: window.token_fp,

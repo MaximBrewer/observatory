@@ -6,11 +6,11 @@ class Api {
                 .then(response => {
                     resolve(response);
                 })
-                .catch(response => {
-                    if (response.status === 401) {
+                .catch(err => {
+                    if (err.response.status === 401) {
                         window.auth.logout();
                     }
-                    reject(response);
+                    reject(err);
                 });
         });
     }
