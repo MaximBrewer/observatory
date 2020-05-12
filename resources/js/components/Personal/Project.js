@@ -1,8 +1,4 @@
-
-import {
-    BrowserRouter as Router,
-    Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import clsx from "clsx";
@@ -134,7 +130,9 @@ export default function Projects(props) {
                 title: window.__("Url"),
                 field: "url",
                 render: rowData => (
-                    <a target="_blank" href={rowData.url}>{rowData.url}</a>
+                    <a target="_blank" href={rowData.url}>
+                        {rowData.url}
+                    </a>
                 )
             },
             {
@@ -157,7 +155,8 @@ export default function Projects(props) {
             {
                 title: window.__("Deviation, +%"),
                 field: "higher_deviation",
-                type: "numeric"
+                type: "numeric",
+                hidden: true
             },
             {
                 title: window.__("Deviation, -%"),
@@ -226,129 +225,125 @@ export default function Projects(props) {
     };
 
     return (
-        <Container component="main">
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <input
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <input
+                    color="primary"
+                    accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    type="file"
+                    onChange={onChange}
+                    id="uploadXlsFile"
+                    style={{ display: "none" }}
+                />
+                <label htmlFor="uploadXlsFile">
+                    <Button
+                        variant="contained"
+                        component="span"
+                        className={classes.button}
+                        size="large"
                         color="primary"
-                        accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        type="file"
-                        onChange={onChange}
-                        id="uploadXlsFile"
-                        style={{ display: "none" }}
-                    />
-                    <label htmlFor="uploadXlsFile">
-                        <Button
-                            variant="contained"
-                            component="span"
-                            className={classes.button}
-                            size="large"
-                            color="primary"
-                        >
-                            {__("Upload Excell")}
-                            <PlaylistAddIcon className={classes.extendedIcon} />
-                        </Button>
-                    </label>
-                </Grid>
-                <Grid item xs={12}>
-                    <MaterialTable
-                        title={window.__("Projects")}
-                        columns={state.columns}
-                        data={state.data}
-                        className={classes.table}
-                        actions={[
-                            {
-                                icon: "camera",
-                                tooltip: __("Show History"),
-                                onClick: (event, rowData) => {
-                                    location.href=`/personal/project/${props.match.params.projectId}/products/${rowData.id}`
-                                }
-                            }
-                        ]}
-                        options={{
-                            actionsColumnIndex: -1
-                        }}
-                        localization={{
-                            pagination: {
-                                labelDisplayedRows:
-                                    "{from}-{to} " +
-                                    window.__("of") +
-                                    " {count}",
-                                labelRowsSelect: window.__("rows")
-                            },
-                            toolbar: {
-                                nRowsSelected:
-                                    "{0} " + window.__("row(s)") + " selected",
-                                searchTooltip: window.__("Search"),
-                                searchPlaceholder: window.__("Search")
-                            },
-                            header: {
-                                actions: window.__("Actions")
-                            },
-                            body: {
-                                emptyDataSourceMessage: window.__(
-                                    "No records to display"
-                                ),
-                                filterRow: {
-                                    filterTooltip: window.__("Filter")
-                                },
-                                editRow: {
-                                    deleteText: window.__(
-                                        "Are you sure you want to delete project?"
-                                    )
-                                }
-                            }
-                        }}
-                        editable={{
-                            onRowAdd: newData =>
-                                axios
-                                    .post(
-                                        "/api/project/" +
-                                            props.match.params.projectId +
-                                            "/products",
-                                        newData
-                                    )
-                                    .then(res => {
-                                        setState(prevState => {
-                                            const data = res.data.data;
-                                            return { ...prevState, data };
-                                        });
-                                    }),
-                            onRowUpdate: (newData, oldData) =>
-                                axios
-                                    .patch(
-                                        "/api/project/" +
-                                            props.match.params.projectId +
-                                            "/products/" +
-                                            oldData.id,
-                                        newData
-                                    )
-                                    .then(res => {
-                                        if (oldData) {
-                                            setState(prevState => {
-                                                const data = res.data.data;
-                                                return { ...prevState, data };
-                                            });
-                                        }
-                                    }),
-                            onRowDelete: oldData =>
-                                axios
-                                    .delete(
-                                        "/api/project/" +
-                                            props.match.params.projectId +
-                                            "/products/" +
-                                            oldData.id
-                                    )
-                                    .then(res => {
-                                        setState(prevState => {
-                                            const data = res.data.data;
-                                            return { ...prevState, data };
-                                        });
-                                    })
-                        }}
-                    />
-                </Grid>
+                    >
+                        {__("Upload Excell")}
+                        <PlaylistAddIcon className={classes.extendedIcon} />
+                    </Button>
+                </label>
             </Grid>
-        </Container>
+            <Grid item xs={12}>
+                <MaterialTable
+                    title={window.__("Projects")}
+                    columns={state.columns}
+                    data={state.data}
+                    className={classes.table}
+                    actions={[
+                        {
+                            icon: "camera",
+                            tooltip: __("Show History"),
+                            onClick: (event, rowData) => {
+                                location.href = `/personal/project/${props.match.params.projectId}/products/${rowData.id}`;
+                            }
+                        }
+                    ]}
+                    options={{
+                        actionsColumnIndex: -1
+                    }}
+                    localization={{
+                        pagination: {
+                            labelDisplayedRows:
+                                "{from}-{to} " + window.__("of") + " {count}",
+                            labelRowsSelect: window.__("rows")
+                        },
+                        toolbar: {
+                            nRowsSelected:
+                                "{0} " + window.__("row(s)") + " selected",
+                            searchTooltip: window.__("Search"),
+                            searchPlaceholder: window.__("Search")
+                        },
+                        header: {
+                            actions: window.__("Actions")
+                        },
+                        body: {
+                            emptyDataSourceMessage: window.__(
+                                "No records to display"
+                            ),
+                            filterRow: {
+                                filterTooltip: window.__("Filter")
+                            },
+                            editRow: {
+                                deleteText: window.__(
+                                    "Are you sure you want to delete project?"
+                                )
+                            }
+                        }
+                    }}
+                    editable={{
+                        onRowAdd: newData =>
+                            axios
+                                .post(
+                                    "/api/project/" +
+                                        props.match.params.projectId +
+                                        "/products",
+                                    newData
+                                )
+                                .then(res => {
+                                    setState(prevState => {
+                                        const data = res.data.data;
+                                        return { ...prevState, data };
+                                    });
+                                }),
+                        onRowUpdate: (newData, oldData) =>
+                            axios
+                                .patch(
+                                    "/api/project/" +
+                                        props.match.params.projectId +
+                                        "/products/" +
+                                        oldData.id,
+                                    newData
+                                )
+                                .then(res => {
+                                    if (oldData) {
+                                        setState(prevState => {
+                                            const data = res.data.data;
+                                            return { ...prevState, data };
+                                        });
+                                    }
+                                }),
+                        onRowDelete: oldData =>
+                            axios
+                                .delete(
+                                    "/api/project/" +
+                                        props.match.params.projectId +
+                                        "/products/" +
+                                        oldData.id
+                                )
+                                .then(res => {
+                                    setState(prevState => {
+                                        const data = res.data.data;
+                                        return { ...prevState, data };
+                                    });
+                                })
+                    }}
+                />
+            </Grid>
+        </Grid>
     );
 }
