@@ -81,18 +81,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         if ($user) {
-            $company = null;
-            if ($data['company'] && !$data['company_id'])
-                $company = Company::create([
-                    'title' => $data['company'],
-                    'manager_id' => $user->id
-                ]);
             $profile = Profile::create([
                 'firstname' => $data['name'],
                 'lastname' => $data['last_name'],
                 'phone' => $data['phone'],
                 'user_id' => $user->id,
-                'company_id' => $company ? $company->id : $data['company_id'],
             ]);
         }
         return $user;

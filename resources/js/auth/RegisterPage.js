@@ -62,10 +62,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const getCompanies = () => {
-    return window.companies;
-};
-
 export default function RegisterPage() {
     const classes = useStyles();
 
@@ -79,14 +75,6 @@ export default function RegisterPage() {
             errors: null
         },
         phone: {
-            value: '',
-            errors: null
-        },
-        company: {
-            value: '',
-            errors: null
-        },
-        company_id: {
             value: '',
             errors: null
         },
@@ -142,42 +130,6 @@ export default function RegisterPage() {
                           errors: !event.target.value
                               ? [__("Field is required!")]
                               : null
-                      },
-            company:
-                event.target.name != "company"
-                    ? event.target.name == "company_id" && event.target.value
-                        ? {
-                              value: "",
-                              errors: null
-                          }
-                        : {
-                              value: register.company.value,
-                              errors: register.company.errors
-                          }
-                    : {
-                          value: event.target.value,
-                          errors:
-                              !event.target.value && !register.company_id.value
-                                  ? [__("Choose company or fill text field!")]
-                                  : null
-                      },
-            company_id:
-                event.target.name != "company_id"
-                    ? event.target.name == "company" && event.target.value
-                        ? {
-                              value: "",
-                              errors: null
-                          }
-                        : {
-                              value: register.company_id.value,
-                              errors: register.company_id.errors
-                          }
-                    : {
-                          value: event.target.value,
-                          errors:
-                              !event.target.value && !register.company.value
-                                  ? [__("Choose company or fill text field!")]
-                                  : null
                       },
             email:
                 event.target.name != "email"
@@ -240,20 +192,6 @@ export default function RegisterPage() {
                     ? [__("Field is required!")]
                     : register.phone.errors
             },
-            company: {
-                value: register.company.value,
-                errors:
-                    !register.company_id.value && !register.company.value
-                        ? [__("Field is required!")]
-                        : register.company.errors
-            },
-            company_id: {
-                value: register.company_id.value,
-                errors:
-                    !register.company_id.value && !register.company.value
-                        ? [__("Field is required!")]
-                        : register.company_id.errors
-            },
             email: {
                 value: register.email.value,
                 errors: !register.email.value
@@ -279,7 +217,6 @@ export default function RegisterPage() {
             register.name.value &&
             register.email.value &&
             // register.phone.value &&
-            (register.company.value || register.company_id.value) &&
             register.password.value &&
             register.password_confirmation.value
         ) {
@@ -289,8 +226,6 @@ export default function RegisterPage() {
                     last_name: register.last_name.value,
                     email: register.email.value,
                     phone: register.phone.value,
-                    company: register.company.value,
-                    company_id: register.company_id.value,
                     password: register.password.value,
                     password_confirmation: register.password_confirmation.value
                 })
@@ -317,14 +252,6 @@ export default function RegisterPage() {
                             phone: {
                                 value: register.phone.value,
                                 errors: err.response.data.errors.phone
-                            },
-                            company: {
-                                value: register.company.value,
-                                errors: err.response.data.errors.company
-                            },
-                            company_id: {
-                                value: register.company_id.value,
-                                errors: err.response.data.errors.company_id
                             },
                             email: {
                                 value: register.email.value,
@@ -415,64 +342,6 @@ export default function RegisterPage() {
                                     label={__("Last Name")}
                                     name="last_name"
                                     autoComplete="lname"
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControl
-                                    variant="outlined"
-                                    className={classes.formControl}
-                                    error={
-                                        !!register.company_id.errors &&
-                                        !!register.company_id.errors.length
-                                    }
-                                >
-                                    <InputLabel id="company-select-label">
-                                        {__("Choose your company")}
-                                    </InputLabel>
-                                    <Select
-                                        labelId="company-select-label"
-                                        id="company_id"
-                                        label={__("Choose your company")}
-                                        name="company_id"
-                                        value={register.company_id.value}
-                                        onChange={handleChange}
-                                        autoComplete="company_id"
-                                    >
-                                        <MenuItem value=''>&nbsp;</MenuItem>
-                                        {getCompanies().map(
-                                            (company, index) => (
-                                                <MenuItem
-                                                    value={company.id}
-                                                    key={index}
-                                                >
-                                                    {company.title}
-                                                </MenuItem>
-                                            )
-                                        )}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="company"
-                                    label={__("or add new")}
-                                    name="company"
-                                    value={register.company.value}
-                                    error={
-                                        !!register.company.errors &&
-                                        !!register.company.errors.length
-                                    }
-                                    helperText={
-                                        !!register.company.errors &&
-                                        !!register.company.errors.length
-                                            ? register.company.errors.join(", ")
-                                            : ""
-                                    }
-                                    autoComplete="company"
                                     onChange={handleChange}
                                 />
                             </Grid>

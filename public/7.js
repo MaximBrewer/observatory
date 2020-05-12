@@ -111,11 +111,6 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_19__["m
     }
   };
 });
-
-var getCompanies = function getCompanies() {
-  return window.companies;
-};
-
 function RegisterPage() {
   var classes = useStyles();
 
@@ -129,14 +124,6 @@ function RegisterPage() {
       errors: null
     },
     phone: {
-      value: '',
-      errors: null
-    },
-    company: {
-      value: '',
-      errors: null
-    },
-    company_id: {
       value: '',
       errors: null
     },
@@ -181,26 +168,6 @@ function RegisterPage() {
         value: event.target.value,
         errors: !event.target.value ? [__("Field is required!")] : null
       },
-      company: event.target.name != "company" ? event.target.name == "company_id" && event.target.value ? {
-        value: "",
-        errors: null
-      } : {
-        value: register.company.value,
-        errors: register.company.errors
-      } : {
-        value: event.target.value,
-        errors: !event.target.value && !register.company_id.value ? [__("Choose company or fill text field!")] : null
-      },
-      company_id: event.target.name != "company_id" ? event.target.name == "company" && event.target.value ? {
-        value: "",
-        errors: null
-      } : {
-        value: register.company_id.value,
-        errors: register.company_id.errors
-      } : {
-        value: event.target.value,
-        errors: !event.target.value && !register.company.value ? [__("Choose company or fill text field!")] : null
-      },
       email: event.target.name != "email" ? {
         value: register.email.value,
         errors: register.email.errors
@@ -241,14 +208,6 @@ function RegisterPage() {
         value: register.phone.value,
         errors: !register.phone.value ? [__("Field is required!")] : register.phone.errors
       },
-      company: {
-        value: register.company.value,
-        errors: !register.company_id.value && !register.company.value ? [__("Field is required!")] : register.company.errors
-      },
-      company_id: {
-        value: register.company_id.value,
-        errors: !register.company_id.value && !register.company.value ? [__("Field is required!")] : register.company_id.errors
-      },
       email: {
         value: register.email.value,
         errors: !register.email.value ? [__("Field is required!")] : register.email.errors
@@ -265,15 +224,13 @@ function RegisterPage() {
     });
     console.log(register);
 
-    if (register.name.value && register.email.value && ( // register.phone.value &&
-    register.company.value || register.company_id.value) && register.password.value && register.password_confirmation.value) {
+    if (register.name.value && register.email.value && // register.phone.value &&
+    register.password.value && register.password_confirmation.value) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/register", {
         name: register.name.value,
         last_name: register.last_name.value,
         email: register.email.value,
         phone: register.phone.value,
-        company: register.company.value,
-        company_id: register.company_id.value,
         password: register.password.value,
         password_confirmation: register.password_confirmation.value
       }).then(function (res) {
@@ -293,14 +250,6 @@ function RegisterPage() {
           phone: {
             value: register.phone.value,
             errors: err.response.data.errors.phone
-          },
-          company: {
-            value: register.company.value,
-            errors: err.response.data.errors.company
-          },
-          company_id: {
-            value: register.company_id.value,
-            errors: err.response.data.errors.company_id
           },
           email: {
             value: register.email.value,
@@ -381,45 +330,6 @@ function RegisterPage() {
     label: __("Last Name"),
     name: "last_name",
     autoComplete: "lname",
-    onChange: handleChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_21__["default"], {
-    variant: "outlined",
-    className: classes.formControl,
-    error: !!register.company_id.errors && !!register.company_id.errors.length
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    id: "company-select-label"
-  }, __("Choose your company")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    labelId: "company-select-label",
-    id: "company_id",
-    label: __("Choose your company"),
-    name: "company_id",
-    value: register.company_id.value,
-    onChange: handleChange,
-    autoComplete: "company_id"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_22__["default"], {
-    value: ""
-  }, "\xA0"), getCompanies().map(function (company, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_22__["default"], {
-      value: company.id,
-      key: index
-    }, company.title);
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    variant: "outlined",
-    required: true,
-    fullWidth: true,
-    id: "company",
-    label: __("or add new"),
-    name: "company",
-    value: register.company.value,
-    error: !!register.company.errors && !!register.company.errors.length,
-    helperText: !!register.company.errors && !!register.company.errors.length ? register.company.errors.join(", ") : "",
-    autoComplete: "company",
     onChange: handleChange
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
     item: true,
