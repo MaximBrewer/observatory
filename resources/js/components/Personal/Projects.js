@@ -51,10 +51,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import PostAddIcon from "@material-ui/icons/PostAdd";
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from "@material-ui/core/Checkbox";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
 import AddIcon from "@material-ui/icons/Add";
 import TablePagination from "@material-ui/core/TablePagination";
 import Rating from "@material-ui/lab/Rating";
@@ -106,15 +106,39 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 function FormProject(props) {
-    const { project } = props;
+    const { project, updateState } = props;
     const [form, setForm] = React.useState(project);
     const classes = useStyles();
     const handleChange = event => {
-        console.log(project);
-        setForm({
-            [event.target.name]: event.target.value
-        });
+        let value = event.target.value;
+        if (event.target.name == "active") {
+            value = event.target.checked * 1;
+        }
+        if (event.target.name == "visibility") {
+            value = event.target.checked ? "public" : "private";
+        }
+        const data = {
+            ...form,
+            [event.target.name]: value
+        };
+        setForm(data);
     };
+
+    const saveForm = () => {
+        if (!!form.id)
+            api.call("patch", "/api/projects/" + form.id, form)
+                .then(res => {
+                    updateState(res.data);
+                })
+                .catch(err => {});
+        else
+            api.call("post", "/api/projects", form)
+                .then(res => {
+                    updateState(res.data);
+                })
+                .catch(err => {});
+    };
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -133,20 +157,122 @@ function FormProject(props) {
                 />
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
-                <FormControlLabel
-                    value="1"
-                    checked={!!form.active}
-                    control={<Checkbox color="primary" />}
-                    label="Активен"
-                    labelPlacement="end"
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    type="number"
+                    step="1"
+                    id="frequency"
+                    label={__("Частота парсинга (в часах)")}
+                    name="frequency"
+                    autoComplete="frequency"
+                    value={form.frequency}
+                    onChange={handleChange}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={4} lg={3}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    type="number"
+                    step=".01"
+                    id="higher_deviation"
+                    label={__("Глобальные отклонения + от цены")}
+                    name="higher_deviation"
+                    autoComplete="higher_deviation"
+                    value={form.higher_deviation}
+                    onChange={handleChange}
+                />
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    type="number"
+                    step=".01"
+                    fullWidth
+                    id="lower_deviation"
+                    label={__("Глобальные отклонения - от цены")}
+                    name="lower_deviation"
+                    autoComplete="lower_deviation"
+                    value={form.lower_deviation}
+                    onChange={handleChange}
+                />
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+                {form.id ? (
+                    ""
+                ) : (
+                    <FormControl
+                        className={classes.formControl}
+                        margin="normal"
+                        fullWidth
+                        variant="outlined"
+                    >
+                        <InputLabel id="site-select-label">Сайт</InputLabel>
+                        <Select
+                            labelId="site-select-label"
+                            id="site_id"
+                            value={form.site_id}
+                            name="site_id"
+                            label="Сайт"
+                            onChange={handleChange}
+                        >
+                            {window.sites.map((site, index) => (
+                                <MenuItem value={site.id} key={index}>
+                                    {site.title}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                )}
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+                <FormControl
+                    className={classes.formControl}
+                    margin="normal"
+                    fullWidth
+                >
+                    <FormControlLabel
+                        value="1"
+                        checked={!!form.active}
+                        control={<Checkbox color="primary" />}
+                        label="Активен"
+                        name="active"
+                        onChange={handleChange}
+                        labelPlacement="end"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+                <FormControl
+                    className={classes.formControl}
+                    margin="normal"
+                    fullWidth
+                >
+                    <FormControlLabel
+                        value="1"
+                        checked={form.visibility == "public"}
+                        control={<Checkbox color="primary" />}
+                        label="Видимый"
+                        name="visibility"
+                        onChange={handleChange}
+                        labelPlacement="end"
+                    />
+                </FormControl>
+            </Grid>
+            <Grid item xs={12} md={12} lg={6} align="right">
                 <Button
                     type="submit"
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onClick={saveForm}
                 >
                     {__("Save")}
                 </Button>
@@ -155,8 +281,40 @@ function FormProject(props) {
     );
 }
 
+function AddProject(props) {
+    const { colspan, tropened, tid, updateState } = props;
+    const project = {
+        title: "",
+        site_id: 1,
+        active: 1,
+        visibility: "public",
+        folder: tid
+    };
+    return (
+        <TableRow>
+            <TableCell
+                style={{ paddingBottom: 0, paddingTop: 0 }}
+                colSpan={colspan}
+            >
+                <Collapse
+                    in={!!tropened["folder-" + tid]}
+                    timeout="auto"
+                    unmountOnExit
+                >
+                    <Box margin={1}>
+                        <FormProject
+                            project={project}
+                            updateState={updateState}
+                        />
+                    </Box>
+                </Collapse>
+            </TableCell>
+        </TableRow>
+    );
+}
+
 function UpdateProject(props) {
-    const { colspan, tropened, project } = props;
+    const { colspan, tropened, project, updateState } = props;
 
     return (
         <TableRow>
@@ -170,7 +328,10 @@ function UpdateProject(props) {
                     unmountOnExit
                 >
                     <Box margin={1}>
-                        <FormProject project={project} />
+                        <FormProject
+                            project={project}
+                            updateState={updateState}
+                        />
                     </Box>
                 </Collapse>
             </TableCell>
@@ -179,7 +340,14 @@ function UpdateProject(props) {
 }
 
 function FolderTable(props) {
-    const { projects, updateState, provided, deleteProject, tropened } = props;
+    const {
+        projects,
+        updateState,
+        provided,
+        deleteProject,
+        tropened,
+        tid
+    } = props;
     const addProject = () => {};
     const classes = useStyles();
 
@@ -198,11 +366,28 @@ function FolderTable(props) {
                     <TableCell component="th">Активен</TableCell>
                     <TableCell component="th">Пользователь</TableCell>
                     <TableCell component="th" className={classes.actionRow}>
-                        <IconButton color="primary">
+                        <IconButton
+                            color="primary"
+                            onClick={() => {
+                                let optis = !tropened["folder-" + tid];
+                                for (let g in tropened) {
+                                    tropened[g] = false;
+                                }
+                                tropened["folder-" + tid] = optis;
+                                updateState({ tropened });
+                            }}
+                        >
                             <AddIcon />
                         </IconButton>
                     </TableCell>
                 </TableRow>
+                <AddProject
+                    project={null}
+                    colspan={7}
+                    tropened={tropened}
+                    tid={tid}
+                    updateState={updateState}
+                />
             </TableHead>
             <TableBody>
                 {projects.map((project, index) => (
@@ -279,6 +464,7 @@ function FolderTable(props) {
                                     project={project}
                                     colspan={7}
                                     tropened={tropened}
+                                    updateState={updateState}
                                 />
                             </React.Fragment>
                         )}
@@ -295,7 +481,17 @@ function FolderTable(props) {
                         Пусто
                     </TableCell>
                     <TableCell component="th" className={classes.actionRow}>
-                        <IconButton color="primary" onClick={addProject}>
+                        <IconButton
+                            color="primary"
+                            onClick={() => {
+                                let optis = !tropened["folder-" + tid];
+                                for (let g in tropened) {
+                                    tropened[g] = false;
+                                }
+                                tropened["folder-" + tid] = optis;
+                                updateState({ tropened });
+                            }}
+                        >
                             <AddIcon />
                         </IconButton>
                     </TableCell>
@@ -383,6 +579,7 @@ function Li(props) {
             <Collapse in={!!opened[item.id]} timeout="auto" unmountOnExit>
                 <Box marginBottom={3}>
                     <FolderTable
+                        tid={item.id}
                         updateState={updateState}
                         projects={item.projects}
                         provided={provided}
@@ -594,6 +791,7 @@ export default function Projects() {
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
                                     <FolderTable
+                                        tid={0}
                                         deleteProject={deleteProject}
                                         updateState={updateState}
                                         projects={state.projects}

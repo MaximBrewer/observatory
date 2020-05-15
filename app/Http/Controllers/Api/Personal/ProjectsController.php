@@ -49,8 +49,12 @@ class ProjectsController extends Controller
             'lower_deviation' => $request->post('lower_deviation'),
             'frequency' => $request->post('frequency'),
             'user_id' => Auth::user()->id,
+            'company_id' => Auth::user()->profile->company_id,
+            'visibility' => $request->post('visibility'),
+            'active' => $request->post('active')
         ]);
-        return new ProjectResource($project);
+        if ($request->post('folder'));
+        return $this->getProjects();
     }
 
     /**
@@ -86,8 +90,7 @@ class ProjectsController extends Controller
     {
         $project = Project::findOrFail($id);
         $project->update($request->all());
-
-        return new ProjectResource($project);
+        return $this->getProjects();
     }
 
     /**
