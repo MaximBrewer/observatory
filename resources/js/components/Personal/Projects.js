@@ -496,6 +496,13 @@ function FolderTable(props) {
                         </IconButton>
                     </TableCell>
                 </TableRow>
+                <AddProject
+                    project={null}
+                    colspan={7}
+                    tropened={tropened}
+                    tid={tid}
+                    updateState={updateState}
+                />
             </TableHead>
         </Table>
     );
