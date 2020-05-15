@@ -42,4 +42,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/projects', 'Api\Personal\ProjectsController', ['except' => ['edit', 'create']]);
     Route::resource('/project/{project_id}/products', 'Api\Personal\ProductsController', ['except' => ['edit', 'create']]);
     Route::post('/project/{project_id}/xls', 'Api\Personal\ProductsController@xls');
+    
+    Route::get('/getProjects', 'Api\Personal\ProjectsController@getProjects');
+    Route::post('/setFolder', 'Api\Personal\ProjectsController@setFolder');
+
+    
 });

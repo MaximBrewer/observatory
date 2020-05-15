@@ -76,8 +76,11 @@ const AppUnlogged = () => {
                         // }
                     },
                     listItem: {
-                        textDecoration: "none",
+                        textDecoration: "none"
                         // color: "#fff"
+                    },
+                    bannerText: {
+                        color: "#fff"
                     }
                 },
                 ruRU
@@ -138,7 +141,7 @@ const AppLogged = () => {
                     palette: {
                         // background: { default: "#121212" },
                         // //type: prefersDarkMode ? "dark" : "light",
-                        type: "light",
+                        type: "light"
                         // text: {
                         //     primary: "#ffffff",
                         //     secondary: "rgba(255, 255, 255, 0.7)"
@@ -209,7 +212,7 @@ axios
         if (auth.check()) {
             axios.get("/api/sites").then(function(res) {
                 window.sites = res.data.sites;
-                window.sitesObject = {};
+                window.sitesObject = [];
                 res.data.sites.map(
                     (site, index) => (window.sitesObject[site.id] = site.title)
                 );

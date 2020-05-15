@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Personal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\Folder as FolderResource;
+use App\Project;
+use App\Http\Resources\Project as ProjectResource;
 use App\Folder;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +20,6 @@ class FoldersController extends Controller
     public function index()
     {
         //
-        return FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get());
     }
 
     /**
@@ -40,13 +41,18 @@ class FoldersController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->post('title')){
+        if ($request->post('title')) {
             Folder::create([
                 'title' => $request->post('title'),
                 'user_id' => Auth::user()->id
             ]);
         }
-        return FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get());
+        return [
+            'folders' => FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get()),
+            'projects' => ProjectResource::collection(Project::where('visibility', 'public')->where('company_id', Auth::user()->profile->company_id)->where(function ($query) {
+                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE user_id = ' . Auth::user()->id . '))');
+            })->get())
+        ];
     }
 
     /**
@@ -81,6 +87,20 @@ class FoldersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if ($request->post('title')) {
+            $folder = Folder::find($id);
+            if ($folder)
+                $folder->update([
+                    'title' => $request->post('title'),
+                    'user_id' => Auth::user()->id
+                ]);
+        }
+        return [
+            'folders' => FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get()),
+            'projects' => ProjectResource::collection(Project::where('visibility', 'public')->where('company_id', Auth::user()->profile->company_id)->where(function ($query) {
+                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE user_id = ' . Auth::user()->id . '))');
+            })->get())
+        ];
     }
 
     /**
@@ -93,6 +113,11 @@ class FoldersController extends Controller
     {
         $model = Folder::findOrFail($id);
         $model->delete();
-        return FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get());
+        return [
+            'folders' => FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get()),
+            'projects' => ProjectResource::collection(Project::where('visibility', 'public')->where('company_id', Auth::user()->profile->company_id)->where(function ($query) {
+                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE user_id = ' . Auth::user()->id . '))');
+            })->get())
+        ];
     }
 }

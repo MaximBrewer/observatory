@@ -11,7 +11,8 @@ import {
     Folder as FolderIcon,
     Dashboard as DashboardIcon,
     CreateNewFolder as CreateNewFolderIcon,
-    Dehaze as DehazeIcon
+    Dehaze as DehazeIcon,
+    Business as BusinessIcon
 } from "@material-ui/icons";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleIcon from "@material-ui/icons/People";
@@ -49,82 +50,8 @@ export default function ListItems() {
     const [open, setOpen] = React.useState(false);
     const [folders, setFolders] = React.useState([]);
 
-    React.useEffect(() => {
-        axios
-            .get("/api/folders")
-            .then(res => {
-                setFolders(res.data.data);
-            })
-            .catch(err => {
-                if (
-                    err.response &&
-                    err.response.data &&
-                    err.response.data.errors
-                ) {
-                }
-            });
-    }, []);
-
-    const addFolder = e => {
-        setOpen(true);
-    };
-    const handleClose = e => {
-        setOpen(false);
-    };
-
-    const onChange = e => {
-        setFolder(e.target.value);
-    };
-
-    const addFolderRequest = e => {
-        window.api
-            .call("post", "/api/folders", { title: folder })
-            .then(res => {
-                setFolders(res.data.data);
-                setFolder("");
-                setOpen(false);
-            })
-            .catch(err => {
-                if (
-                    err.response &&
-                    err.response.data &&
-                    err.response.data.errors
-                ) {
-                    console.log(err.response.data.errors);
-                }
-            });
-    };
-
-    const deleteFolder = id => {
-        confirm({
-            title: __("Are you shure?"),
-            description: __("Are you sure you want to delete the folder?"),
-            confirmationText: __("Ok"),
-            cancellationText: __("Cancel"),
-            dialogProps: {},
-            confirmationButtonProps: {},
-            cancellationButtonProps: {}
-        }).then(() => {
-            window.api
-                .call("delete", "/api/folders/" + id)
-                .then(res => {
-                    setFolders(res.data.data);
-                })
-                .catch(err => {
-                    if (
-                        err.response &&
-                        err.response.data &&
-                        err.response.data.errors
-                    ) {
-                        console.log(err.response.data.errors);
-                    }
-                });
-        });
-    };
-
     const logout = e => {
         e.preventDefault();
-
         axios
             .post("/api/logout", {
                 _token: window.csrf_token
@@ -143,7 +70,6 @@ export default function ListItems() {
                 }
             });
     };
-    console.log(classes.listItem);
     return (
         <div>
             <CssBaseline />
@@ -159,34 +85,6 @@ export default function ListItems() {
                     <ListItemText primary={window.__("Dashboard")} />
                 </ListItem>
             </LinkUI>
-            {folders.map((folder, index) => (
-                <LinkUI
-                    key={index}
-                    to="/personal/projects"
-                    component={Link}
-                    className={classes.listItem}
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <FolderIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={folder.title} />
-                        <span
-                            onClick={() => {
-                                deleteFolder(folder.id);
-                            }}
-                        >
-                            &times;
-                        </span>
-                    </ListItem>
-                </LinkUI>
-            ))}
-            <ListItem button onClick={addFolder}>
-                <ListItemIcon>
-                    <CreateNewFolderIcon />
-                </ListItemIcon>
-                <ListItemText primary={window.__("Add Folder")} />
-            </ListItem>
             <LinkUI
                 to="/personal/projects"
                 component={Link}
@@ -200,6 +98,18 @@ export default function ListItems() {
                 </ListItem>
             </LinkUI>
             <Divider />
+            <LinkUI
+                to="/personal/company"
+                component={Link}
+                className={classes.listItem}
+            >
+                <ListItem button>
+                    <ListItemIcon>
+                        <BusinessIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={window.__("Company")} />
+                </ListItem>
+            </LinkUI>
             <LinkUI
                 to="/personal/profile"
                 component={Link}
@@ -224,29 +134,6 @@ export default function ListItems() {
                     <ListItemText primary={window.__("Logout")} />
                 </ListItem>
             </LinkUI>
-
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="form-dialog-title"
-            >
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        value={folder}
-                        onChange={onChange}
-                        label={__("Folder")}
-                        type="text"
-                        fullWidth
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={addFolderRequest} color="primary">
-                        {__("Add")}
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </div>
     );
 }

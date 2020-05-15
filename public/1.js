@@ -110,6 +110,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_14__["m
       marginRight: theme.spacing(2)
     },
     heroContent: {
+      color: "#fff",
       backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(8, 0, 6),
       backgroundImage: "url(/img/bg.jpg)",
@@ -162,12 +163,10 @@ function Home() {
     component: "h1",
     variant: "h2",
     align: "center",
-    color: "textPrimary",
     gutterBottom: true
   }, __("Observatory")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
     variant: "h5",
     align: "center",
-    color: "textSecondary",
     paragraph: true
   }, __("Watch your goods on different platforms at the same time!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.heroButtons

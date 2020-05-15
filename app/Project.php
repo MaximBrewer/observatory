@@ -13,12 +13,16 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'user_id', 'site_id', 'higher_deviation', 'lower_deviation', 'frequency'
+        'title', 'user_id', 'site_id', 'higher_deviation', 'lower_deviation', 'frequency', 'active'
     ];
     //
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
     }
     public function site()
     {
@@ -31,23 +35,21 @@ class Project extends Model
 
     public function setLowerDeviationAttribute($value)
     {
-        $this->attributes['lower_deviation'] = ceil((float)$value * 100);
+        $this->attributes['lower_deviation'] = ceil((float) $value * 100);
     }
 
     public function getLowerDeviationAttribute($value)
     {
-        return (float)$value / 100;
+        return (float) $value / 100;
     }
 
     public function setHigherDeviationAttribute($value)
     {
-        $this->attributes['higher_deviation'] = ceil((float)$value * 100);
+        $this->attributes['higher_deviation'] = ceil((float) $value * 100);
     }
 
     public function getHigherDeviationAttribute($value)
     {
-        return (float)$value / 100;
+        return (float) $value / 100;
     }
-
-
 }

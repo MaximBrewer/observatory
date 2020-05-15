@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2)
     },
     heroContent: {
+        color: "#fff",
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6),
         backgroundImage: "url(/img/bg.jpg)",
@@ -100,17 +101,11 @@ export default function Home() {
                             component="h1"
                             variant="h2"
                             align="center"
-                            color="textPrimary"
                             gutterBottom
                         >
                             {__("Observatory")}
                         </Typography>
-                        <Typography
-                            variant="h5"
-                            align="center"
-                            color="textSecondary"
-                            paragraph
-                        >
+                        <Typography variant="h5" align="center" paragraph>
                             {__(
                                 "Watch your goods on different platforms at the same time!"
                             )}
