@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Folder as FolderResource;
+use App\Http\Resources\Project as ProjectResource;
+use Illuminate\Support\Facades\Auth;
 
 class Project extends Model
 {
@@ -51,5 +54,20 @@ class Project extends Model
     public function getHigherDeviationAttribute($value)
     {
         return (float) $value / 100;
+    }
+    public static function returnProjects()
+    {
+        $projects = Project::where('visibility', 'public')
+            ->where('company_id', Auth::user()->company_id)
+            ->where(function ($query) {
+                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE company_id = ' . Auth::user()->company_id . '))');
+            })
+            ->get();
+
+
+        return [
+            'folders' => FolderResource::collection(Folder::where('company_id', Auth::user()->company_id)->get()),
+            'projects' => ProjectResource::collection($projects)
+        ];
     }
 }

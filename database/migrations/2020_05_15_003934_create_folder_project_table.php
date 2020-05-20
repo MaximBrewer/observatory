@@ -19,7 +19,6 @@ class CreateFolderProjectTable extends Migration
             $table->unsignedBigInteger('folder_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

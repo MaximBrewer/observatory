@@ -9,7 +9,7 @@ class Folder extends Model
 {
     //
     protected $fillable = [
-        'title', 'user_id'
+        'title', 'user_id', 'company_id'
     ];
 
     public function projects()

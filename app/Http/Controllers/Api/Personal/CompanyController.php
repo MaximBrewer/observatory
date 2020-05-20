@@ -32,6 +32,20 @@ class CompanyController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function set(Request $request)
+    {
+        //
+        $user = User::find(Auth::user()->id);
+        $user->update(['company_id' => $request->id]);
+        
+        return ['user' => new UserResource($user)];
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -89,7 +103,22 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $model = Company::findOrfail($id);
+
+        $attributes = $request->all();
+
+        $request->validate([
+            "title" => "required|min:2",
+            "www" => "required|url",
+            "email" => "required|email",
+            "contact" => "required|min:6",
+            "phone" => "required|min:6",
+        ]);
+        
+        $model->update($attributes);
+        $user = User::find(Auth::user()->id);
+
+        return ['user' => new UserResource($user)];
     }
 
     /**

@@ -49,12 +49,12 @@ class ProjectsController extends Controller
             'lower_deviation' => $request->post('lower_deviation'),
             'frequency' => $request->post('frequency'),
             'user_id' => Auth::user()->id,
-            'company_id' => Auth::user()->profile->company_id,
+            'company_id' => Auth::user()->company_id,
             'visibility' => $request->post('visibility'),
             'active' => $request->post('active')
         ]);
         if ($request->post('folder'));
-        return $this->getProjects();
+        return Project::returnProjects();
     }
 
     /**
@@ -90,7 +90,7 @@ class ProjectsController extends Controller
     {
         $project = Project::findOrFail($id);
         $project->update($request->all());
-        return $this->getProjects();
+        return Project::returnProjects();
     }
 
     /**
@@ -103,17 +103,7 @@ class ProjectsController extends Controller
     {
         $project = Project::findOrFail($id);
         $project->delete();
-        return $this->getProjects();
-    }
-
-    public function getProjects()
-    {
-        return [
-            'folders' => FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get()),
-            'projects' => ProjectResource::collection(Project::where('visibility', 'public')->where('company_id', Auth::user()->profile->company_id)->where(function ($query) {
-                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE user_id = ' . Auth::user()->id . '))');
-            })->get())
-        ];
+        return Project::returnProjects();
     }
 
     public function setFolder(Request $request)
@@ -132,11 +122,10 @@ class ProjectsController extends Controller
             if ($from) $from->projects()->detach($project->id);
             $to->projects()->attach($project->id);
         }
-        return [
-            'folders' => FolderResource::collection(Folder::where('user_id', Auth::user()->id)->get()),
-            'projects' => ProjectResource::collection(Project::where('visibility', 'public')->where('company_id', Auth::user()->profile->company_id)->where(function ($query) {
-                $query->whereRaw('`id` NOT IN (SELECT project_id from folder_project WHERE folder_id IN (SELECT id FROM folders WHERE user_id = ' . Auth::user()->id . '))');
-            })->get())
-        ];
+        return Project::returnProjects();
+    }
+    public function getProjects()
+    {
+        return Project::returnProjects();
     }
 }

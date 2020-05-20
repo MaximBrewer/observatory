@@ -11,6 +11,15 @@ import {
     useRouteMatch
 } from "react-router-dom";
 import clsx from "clsx";
+
+import {
+    Folder as FolderIcon,
+    Dashboard as DashboardIcon,
+    CreateNewFolder as CreateNewFolderIcon,
+    Dehaze as DehazeIcon,
+    Business as BusinessIcon
+} from "@material-ui/icons";
+
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -47,7 +56,8 @@ import PersonalProjects from "./Personal/Projects";
 import PersonalProject from "./Personal/Project";
 import PersonalFolder from "./Personal/Folder";
 import PersonalProfile from "./Personal/Profile";
-import PersonalCompany from "./Personal/Company";
+import PersonalCompanyAdd from "./Personal/CompanyAdd";
+import PersonalCompanyEdit from "./Personal/CompanyEdit";
 import Dialog from "@material-ui/core/Dialog";
 
 import Grow from "@material-ui/core/Grow";
@@ -55,7 +65,6 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Auth from "../auth";
-import CompanyForm from "./Personal/CompanyForm";
 import Hidden from "@material-ui/core/Hidden";
 
 const drawerWidth = 240;
@@ -118,7 +127,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Personal(props) {
     const { user, updateUser } = props;
-    const [company, setCompany] = React.useState(null);
 
     const history = useHistory();
     const classes = useStyles();
@@ -126,22 +134,21 @@ export default function Personal(props) {
     const anchorRefCompany = React.useRef(null);
     const anchorRefUser = React.useRef(null);
 
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
-
     const [openCompanyMenu, setOpenCompanyMenu] = React.useState(false);
     const [openUserMenu, setOpenUserMenu] = React.useState(false);
 
-    const editCompany = company => {
-        setCompany(company);
-        const location = {
-            pathname: "/personal/company"
-        };
-        history.push(location);
-    };
-
     const changeCompany = (event, index, company) => {
-        setSelectedIndex(index);
-        setOpenCompanyMenu(false);
+        api.call(`patch`, `/api/company-set`, {
+            id: company.id
+        })
+            .then(res => {
+                updateUser(res.data.user);
+                setOpenUserMenu(false);
+                setOpenCompanyMenu(false);
+                if(location.pathname == '/personal') history.replace('/')
+                history.replace('/personal')
+            })
+            .catch(err => {});
     };
 
     const handleToggleCompany = () => {
@@ -171,12 +178,6 @@ export default function Personal(props) {
         setOpenUserMenu(false);
     };
 
-    const addNewCompany = () => {};
-
-    const sendInvation = () => {};
-
-    let { path, url } = useRouteMatch();
-
     const logout = e => {
         e.preventDefault();
         axios
@@ -203,7 +204,7 @@ export default function Personal(props) {
                         noWrap
                         className={classes.title}
                     >
-                        {user.company ? user.company.title : ""}
+                        {""}
                     </Typography>
 
                     <ButtonGroup
@@ -212,14 +213,9 @@ export default function Personal(props) {
                         aria-label="split button"
                     >
                         {user.company ? (
-                            <Button onClick={sendInvation}>
-                                <PersonAddIcon />
-                                <Hidden smDown>
-                                    &nbsp;&nbsp;{__("Invait")}
-                                </Hidden>
-                            </Button>
+                            ""
                         ) : (
-                            <Button onClick={editCompany(null)}>
+                            <Button to="/personal/company/add" component={Link}>
                                 <AddIcon />
                                 <Hidden smDown>
                                     &nbsp;&nbsp;{__("Add Company")}
@@ -243,6 +239,14 @@ export default function Personal(props) {
                                 aria-haspopup="menu"
                                 onClick={handleToggleCompany}
                             >
+                                <BusinessIcon />
+                                {user.company ? (
+                                    <Hidden smDown>
+                                        &nbsp;&nbsp;{user.company.title}
+                                    </Hidden>
+                                ) : (
+                                    ""
+                                )}
                                 <ArrowDropDownIcon />
                             </Button>
                         ) : (
@@ -293,34 +297,56 @@ export default function Personal(props) {
                                         >
                                             <MenuList id="split-button-menu">
                                                 {user.companies.map(
-                                                    (c, index) => (
+                                                    (company, index) => (
                                                         <MenuItem
-                                                            key={c.id}
+                                                            key={company.id}
                                                             selected={
-                                                                index ===
-                                                                selectedIndex
+                                                                company.id ===
+                                                                user.company.id
                                                             }
                                                             onClick={event =>
                                                                 changeCompany(
                                                                     event,
                                                                     index,
-                                                                    c
+                                                                    company
                                                                 )
                                                             }
                                                         >
-                                                            {c.title}
-                                                            <Button
-                                                                onClick={editCompany(
-                                                                    c
-                                                                )}
-                                                            >
-                                                                <EditIcon />
-                                                            </Button>
+                                                            {company.title}
                                                         </MenuItem>
                                                     )
                                                 )}
+                                                <Divider />
+                                                {user.company ? (
+                                                    <MenuItem
+                                                        to="/personal/company/invait"
+                                                        component={Link}
+                                                        onClick={
+                                                            handleCloseCompany
+                                                        }
+                                                    >
+                                                        {__("Invait")}
+                                                    </MenuItem>
+                                                ) : (
+                                                    ""
+                                                )}
+                                                {user.company ? (
+                                                    <MenuItem
+                                                        to="/personal/company/edit"
+                                                        component={Link}
+                                                        onClick={
+                                                            handleCloseCompany
+                                                        }
+                                                    >
+                                                        {__("Edit Company")}
+                                                    </MenuItem>
+                                                ) : (
+                                                    ""
+                                                )}
                                                 <MenuItem
-                                                    onClick={editCompany(null)}
+                                                    to="/personal/company/add"
+                                                    component={Link}
+                                                    onClick={handleCloseCompany}
                                                 >
                                                     {__("Add Company")}
                                                 </MenuItem>
@@ -406,11 +432,20 @@ export default function Personal(props) {
                         />
                         <Route
                             exact
-                            path="/personal/company"
+                            path="/personal/company/add"
                             render={props => (
-                                <PersonalCompany
+                                <PersonalCompanyAdd
                                     {...props}
-                                    company={company}
+                                    updateUser={updateUser}
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/personal/company/edit"
+                            render={props => (
+                                <PersonalCompanyEdit
+                                    {...props}
                                     user={user}
                                     updateUser={updateUser}
                                 />

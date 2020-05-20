@@ -20,6 +20,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
             $table->bigInteger('folder_id')->nullable();
+            $table->boolean('active')->default(true);
             $table->integer('higher_deviation');
             $table->integer('lower_deviation');
             $table->enum('visibility', ['public', 'private']);
