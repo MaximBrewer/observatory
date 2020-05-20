@@ -137,12 +137,10 @@ function PasswordConfirmPage() {
       },
       errors: null
     });
-    console.log(auth.remember, event.target.name, event.target.checked);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(auth);
     setAuthState({
       password: {
         value: auth.password.value,
@@ -159,14 +157,11 @@ function PasswordConfirmPage() {
     });
 
     if (auth.password.value && auth.password.value) {
-      console.log(auth);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/login", {
         email: auth.email.value,
         password: auth.password.value,
         remember: auth.remember.checked
-      }).then(function (res) {
-        console.log(res.data);
-      })["catch"](function (err) {
+      }).then(function (res) {})["catch"](function (err) {
         setAuthState({
           password: {
             value: auth.password.value,

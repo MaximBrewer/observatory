@@ -413,7 +413,13 @@ function FolderTable(props) {
                                             <DehazeIcon />
                                         </IconButton>
                                     </TableCell>
-                                    <TableCell>{project.title}</TableCell>
+                                    <TableCell>
+                                        <Link
+                                            to={`/personal/projects/${project.id}`}
+                                        >
+                                            {project.title}
+                                        </Link>
+                                    </TableCell>
                                     <TableCell></TableCell>
                                     <TableCell>{project.site.title}</TableCell>
                                     <TableCell align="center">

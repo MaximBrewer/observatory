@@ -2,15 +2,13 @@ require("./lang.js");
 import axios from "axios";
 import Auth from "./auth.js";
 import Api from "./api.js";
-import React, { Suspense, lazy } from "react";
+import React, { useState,Suspense, lazy } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { ruRU } from "@material-ui/core/locale";
 import { ConfirmProvider } from "material-ui-confirm";
 
 window.axios = axios;
-window.api = new Api();
-window.auth = new Auth();
 
 // axios.defaults.headers.common = {
 //     "X-Requested-With": "XMLHttpRequest",
@@ -53,7 +51,7 @@ const AppUnlogged = () => {
                     palette: {
                         // background: { default: "#121212" },
                         //type: prefersDarkMode ? "dark" : "light",
-                        type: "light",
+                        type: "light"
                         // text: {
                         //     primary: "#444444",
                         //     secondary: "rgba(255, 255, 255, 0.7)"
@@ -132,8 +130,12 @@ const AppUnlogged = () => {
         </ThemeProvider>
     );
 };
-const AppLogged = () => {
+const AppLogged = props => {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    const [user, setUser] = useState(props.user);
+    const updateUser = (user) => {
+        setUser(user)
+    }
     const theme = React.useMemo(
         () =>
             createMuiTheme(
@@ -180,7 +182,9 @@ const AppLogged = () => {
                             <Route exact path="/" component={Home} />
                             <Route
                                 path="/personal"
-                                component={Personal}
+                                render={props => (
+                                    <Personal {...props} user={user} updateUser={updateUser} />
+                                )}
                             ></Route>
                             <Route path="/login">
                                 <Redirect to="/personal" />
@@ -204,24 +208,25 @@ const AppLogged = () => {
         </ThemeProvider>
     );
 };
+window.sitesObject = [];
+window.sites = [];
 
-axios
-    .get("/api/companies")
-    .then(function(res) {
-        window.companies = res.data.companies;
-        if (auth.check()) {
-            axios.get("/api/sites").then(function(res) {
-                window.sites = res.data.sites;
-                window.sitesObject = [];
-                res.data.sites.map(
-                    (site, index) => (window.sitesObject[site.id] = site.title)
-                );
-                ReactDOM.render(<AppLogged />, document.getElementById("app"));
-            });
-        } else {
-            ReactDOM.render(<AppUnlogged />, document.getElementById("app"));
-        }
-    })
-    .catch(function(err) {
-        console.log(err);
+window.api = new Api();
+window.auth = new Auth();
+
+
+if (auth.check()) {
+    window.api.call("get", "/api/get-user").then(res => {
+        let user = res.data.data;
+        axios.get("/api/sites").then(function(res) {
+            sites = res.data.sites;
+            res.data.sites.map(site => (sitesObject[site.id] = site.title));
+            ReactDOM.render(
+                <AppLogged user={user} />,
+                document.getElementById("app")
+            );
+        });
     });
+} else {
+    ReactDOM.render(<AppUnlogged />, document.getElementById("app"));
+}

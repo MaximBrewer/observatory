@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/profile/setAvatar', 'Api\Personal\ProfileController@setAvatar');
 
     Route::resource('/folders', 'Api\Personal\FoldersController', ['except' => ['edit', 'create']]);
+    Route::resource('/company', 'Api\Personal\CompanyController', ['except' => ['edit', 'create']]);
     Route::resource('/projects', 'Api\Personal\ProjectsController', ['except' => ['edit', 'create']]);
     Route::resource('/project/{project_id}/products', 'Api\Personal\ProductsController', ['except' => ['edit', 'create']]);
     Route::post('/project/{project_id}/xls', 'Api\Personal\ProductsController@xls');

@@ -212,7 +212,6 @@ export default function RegisterPage() {
             },
             errors: register.errors
         });
-        console.log(register);
         if (
             register.name.value &&
             register.email.value &&

@@ -25,7 +25,10 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center"
     },
     avatar: {
-        margin: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        marginLeft: 'auto',
+        marginRight: 'auto',
         width: theme.spacing(20),
         height: theme.spacing(20),
         backgroundColor: theme.palette.primary.main
@@ -38,24 +41,24 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(3, 0, 2)
     }
 }));
-export default function Profile() {
+export default function Profile(props) {
+    const { user } = props;
     const classes = useStyles();
     return (
         <Container component="main">
             <CssBaseline />
             <form className={classes.form} noValidate>
                 <Grid container spacing={3}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <Avatar className={classes.avatar}>
-                            <ImageUpload cardName="Input Image" />
+                            <ImageUpload cardName="Input Image" user={user} />
                         </Avatar>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
+                            value={user.profile.firstname}
                             id="firstname"
                             label={__("Firstname")}
                             name="firstname"
@@ -67,42 +70,22 @@ export default function Profile() {
                             margin="normal"
                             required
                             fullWidth
+                            value={user.profile.lastname}
                             id="lastname"
                             label={__("Lastname")}
                             name="lastname"
                             autoComplete="lastname"
                         />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            {__("Save")}
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="firstname"
-                            label={__("Firstname")}
-                            name="firstname"
-                            autoComplete="firstname"
+                            id="phone"
+                            label={__("Phone")}
+                            name="phone"
+                            autoComplete="phone"
                             autoFocus
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="lastname"
-                            label={__("Lastname")}
-                            name="lastname"
-                            autoComplete="lastname"
                         />
                         <Button
                             type="submit"

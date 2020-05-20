@@ -82,7 +82,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function ImageUploadCard(props) {
     const classes = useStyles();
-    const [state, setState] = useState(!!window.auth.user.profile.avatar ? "/storage/" + window.auth.user.profile.avatar : "/storage/users/default.png");
+
+    const {user} = props;
+    const [state, setState] = useState(!!user.profile.avatar ? "/storage/" + user.profile.avatar : "/storage/users/default.png");
 
     const handleUploadClick = event => {
         const reader = new FileReader();
@@ -94,8 +96,7 @@ export default function ImageUploadCard(props) {
                 })
                 .then(res => {
                     setState("/storage/" + res.data);
-                    window.auth.user.profile.avatar = res.data;
-                    window.localStorage.setItem("user", JSON.stringify(window.auth.user));
+                    user.profile.avatar = res.data;
                 })
                 .catch(err => {});
         }.bind(this);

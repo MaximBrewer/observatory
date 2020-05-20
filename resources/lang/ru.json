@@ -66,6 +66,15 @@
     "Add": "Добавить",
     "Are you shure?": "Вы уверены?",
     "Ok": "Да",
+    "You have no company!": "У Вас нет созданных компаний",
+    "Create": "Создать",
+    "Invait": "Пригласить",
+    "Add Company": "Добавить компанию",
+    "Update": "Обновить",
     "Cancel": "Отмена",
+    "Web Site": "Сайт",
+    "Contact Person": "Контакное лицо",
+    "Phone": "Телефон",
+    "E-mail": "E-mail",
     "Are you sure you want to delete the folder?": "Вы уверены что хотите удалить папку?"
 }

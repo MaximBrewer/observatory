@@ -142,7 +142,6 @@ function PasswordResetPage() {
         email: auth.email.value
       }).then(function (res) {
         if (res.data) {
-          console.log(res.data);
           setSentState(true);
         }
       })["catch"](function (err) {

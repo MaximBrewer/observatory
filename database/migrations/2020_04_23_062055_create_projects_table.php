@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->unsignedBigInteger('site_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('company_id');
             $table->bigInteger('folder_id')->nullable();
             $table->integer('higher_deviation');
             $table->integer('lower_deviation');
@@ -26,6 +27,7 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
             $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 

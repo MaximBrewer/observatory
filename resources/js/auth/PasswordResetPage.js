@@ -99,7 +99,6 @@ export default function PasswordResetPage() {
                 })
                 .then(res => {
                     if (res.data) {
-                        console.log(res.data);
                         setSentState(true);
                     }
                 })

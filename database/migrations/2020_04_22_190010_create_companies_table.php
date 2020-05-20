@@ -16,8 +16,10 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('title')->comment('Title');
-            $table->unsignedBigInteger('manager_id')->nullable()->comment('Manager ID');
-            $table->foreign('manager_id')->references('id')->on('users')->onDelete('set null');
+            $table->string('www')->comment('Site');
+            $table->string('contact')->comment('Contact Person');
+            $table->string('phone')->comment('Phone');
+            $table->string('email')->comment('E-mail');
             $table->timestamps();
         });
     }

@@ -164,13 +164,11 @@ function LoginPage() {
         remember: auth.remember.checked
       }).then(function (res) {
         if (res.data) {
-          window.auth.login(res.data.token, res.data.user);
+          window.auth.login(res.data.token);
           if (res.data.redirectTo) location.href = res.data.redirectTo;
           location.href = "/personal";
         }
       })["catch"](function (err) {
-        console.log(err);
-
         if (err.response && err.response.data) {
           if (err.response.data.errors) setAuthState({
             password: {

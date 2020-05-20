@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,28 +7,39 @@ import {
     useHistory,
     useLocation,
     useParams,
+    Link,
     useRouteMatch
 } from "react-router-dom";
 import clsx from "clsx";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import EditIcon from "@material-ui/icons/Edit";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@material-ui/core/Button";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+
 import IconButton from "@material-ui/core/IconButton";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import AddIcon from "@material-ui/icons/Add";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
 import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ListItems from "./Personal/components/ListItems";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import PersonalIndex from "./Personal/Index";
 import PersonalProduct from "./Personal/Product";
@@ -36,19 +47,16 @@ import PersonalProjects from "./Personal/Projects";
 import PersonalProject from "./Personal/Project";
 import PersonalFolder from "./Personal/Folder";
 import PersonalProfile from "./Personal/Profile";
+import PersonalCompany from "./Personal/Company";
+import Dialog from "@material-ui/core/Dialog";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
+import Grow from "@material-ui/core/Grow";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import Auth from "../auth";
+import CompanyForm from "./Personal/CompanyForm";
+import Hidden from "@material-ui/core/Hidden";
 
 const drawerWidth = 240;
 
@@ -74,14 +82,6 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen
         })
     },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
     menuButton: {
         marginRight: 36
     },
@@ -90,26 +90,6 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1
-    },
-    drawerPaper: {
-        position: "relative",
-        whiteSpace: "nowrap",
-        width: drawerWidth,
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    drawerPaperClose: {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9)
-        }
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -136,37 +116,86 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Personal() {
+export default function Personal(props) {
+    const { user, updateUser } = props;
+    const [company, setCompany] = React.useState(null);
+
+    const history = useHistory();
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const handleDrawerOpen = () => {
-        setOpen(true);
+
+    const anchorRefCompany = React.useRef(null);
+    const anchorRefUser = React.useRef(null);
+
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+    const [openCompanyMenu, setOpenCompanyMenu] = React.useState(false);
+    const [openUserMenu, setOpenUserMenu] = React.useState(false);
+
+    const editCompany = company => {
+        setCompany(company);
+        const location = {
+            pathname: "/personal/company"
+        };
+        history.push(location);
     };
-    const handleDrawerClose = () => {
-        setOpen(false);
+
+    const changeCompany = (event, index, company) => {
+        setSelectedIndex(index);
+        setOpenCompanyMenu(false);
     };
+
+    const handleToggleCompany = () => {
+        setOpenCompanyMenu(prevOpen => !prevOpen);
+    };
+    const handleToggleUser = () => {
+        setOpenUserMenu(prevOpen => !prevOpen);
+    };
+
+    const handleCloseCompany = event => {
+        if (
+            anchorRefCompany.current &&
+            anchorRefCompany.current.contains(event.target)
+        ) {
+            return;
+        }
+        setOpenCompanyMenu(false);
+    };
+
+    const handleCloseUser = event => {
+        if (
+            anchorRefUser.current &&
+            anchorRefUser.current.contains(event.target)
+        ) {
+            return;
+        }
+        setOpenUserMenu(false);
+    };
+
+    const addNewCompany = () => {};
+
+    const sendInvation = () => {};
+
     let { path, url } = useRouteMatch();
+
+    const logout = e => {
+        e.preventDefault();
+        axios
+            .post("/api/logout", {
+                _token: window.csrf_token
+            })
+            .then(res => {
+                history.entries = [];
+                history.index = -1;
+                window.auth.logout();
+            })
+            .catch(err => {});
+    };
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar
-                position="absolute"
-                className={clsx(classes.appBar, open && classes.appBarShift)}
-            >
+            <AppBar position="absolute" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(
-                            classes.menuButton,
-                            open && classes.menuButtonHidden
-                        )}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography
                         component="h1"
                         variant="h6"
@@ -174,36 +203,181 @@ export default function Personal() {
                         noWrap
                         className={classes.title}
                     >
-                        {__("Observatory")}
+                        {user.company ? user.company.title : ""}
                     </Typography>
-                    {/* <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton> */}
+
+                    <ButtonGroup
+                        variant="contained"
+                        color="default"
+                        aria-label="split button"
+                    >
+                        {user.company ? (
+                            <Button onClick={sendInvation}>
+                                <PersonAddIcon />
+                                <Hidden smDown>
+                                    &nbsp;&nbsp;{__("Invait")}
+                                </Hidden>
+                            </Button>
+                        ) : (
+                            <Button onClick={editCompany(null)}>
+                                <AddIcon />
+                                <Hidden smDown>
+                                    &nbsp;&nbsp;{__("Add Company")}
+                                </Hidden>
+                            </Button>
+                        )}
+                        {user.companies.length ? (
+                            <Button
+                                ref={anchorRefCompany}
+                                color="default"
+                                size="small"
+                                aria-controls={
+                                    openCompanyMenu
+                                        ? "split-button-menu"
+                                        : undefined
+                                }
+                                aria-expanded={
+                                    openCompanyMenu ? "true" : undefined
+                                }
+                                aria-label="select merge strategy"
+                                aria-haspopup="menu"
+                                onClick={handleToggleCompany}
+                            >
+                                <ArrowDropDownIcon />
+                            </Button>
+                        ) : (
+                            ""
+                        )}
+                        <Button
+                            color="default"
+                            size="small"
+                            ref={anchorRefUser}
+                            aria-controls={
+                                openCompanyMenu
+                                    ? "split-button-menu"
+                                    : undefined
+                            }
+                            aria-expanded={openUserMenu ? "true" : undefined}
+                            aria-label="select merge strategy"
+                            aria-haspopup="menu"
+                            onClick={handleToggleUser}
+                        >
+                            <AccountCircleIcon />
+                            <Hidden smDown>
+                                &nbsp;&nbsp;{user.profile.firstname}
+                            </Hidden>
+                            <ArrowDropDownIcon />
+                        </Button>
+                    </ButtonGroup>
+                    {user.companies.length ? (
+                        <Popper
+                            open={openCompanyMenu}
+                            anchorEl={anchorRefCompany.current}
+                            role={undefined}
+                            transition
+                            disablePortal
+                        >
+                            {({ TransitionProps, placement }) => (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{
+                                        transformOrigin:
+                                            placement === "bottom"
+                                                ? "center top"
+                                                : "center bottom"
+                                    }}
+                                >
+                                    <Paper>
+                                        <ClickAwayListener
+                                            onClickAway={handleCloseCompany}
+                                        >
+                                            <MenuList id="split-button-menu">
+                                                {user.companies.map(
+                                                    (c, index) => (
+                                                        <MenuItem
+                                                            key={c.id}
+                                                            selected={
+                                                                index ===
+                                                                selectedIndex
+                                                            }
+                                                            onClick={event =>
+                                                                changeCompany(
+                                                                    event,
+                                                                    index,
+                                                                    c
+                                                                )
+                                                            }
+                                                        >
+                                                            {c.title}
+                                                            <Button
+                                                                onClick={editCompany(
+                                                                    c
+                                                                )}
+                                                            >
+                                                                <EditIcon />
+                                                            </Button>
+                                                        </MenuItem>
+                                                    )
+                                                )}
+                                                <MenuItem
+                                                    onClick={editCompany(null)}
+                                                >
+                                                    {__("Add Company")}
+                                                </MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+                                    </Paper>
+                                </Grow>
+                            )}
+                        </Popper>
+                    ) : (
+                        ""
+                    )}
+                    <Popper
+                        open={openUserMenu}
+                        anchorEl={anchorRefUser.current}
+                        role={undefined}
+                        transition
+                        disablePortal
+                    >
+                        {({ TransitionProps, placement }) => (
+                            <Grow
+                                {...TransitionProps}
+                                style={{
+                                    transformOrigin:
+                                        placement === "bottom"
+                                            ? "center top"
+                                            : "center bottom"
+                                }}
+                            >
+                                <Paper>
+                                    <ClickAwayListener
+                                        onClickAway={handleCloseUser}
+                                    >
+                                        <MenuList id="split-button-menu">
+                                            <MenuItem
+                                                to="/personal/profile"
+                                                component={Link}
+                                                onClick={handleCloseUser}
+                                            >
+                                                {__("Profile")}
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={logout}
+                                                href="/api/logout"
+                                            >
+                                                {__("Logout")}
+                                                &nbsp;&nbsp;&nbsp;
+                                                <ExitToAppIcon />
+                                            </MenuItem>
+                                        </MenuList>
+                                    </ClickAwayListener>
+                                </Paper>
+                            </Grow>
+                        )}
+                    </Popper>
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: clsx(
-                        classes.drawerPaper,
-                        !open && classes.drawerPaperClose
-                    )
-                }}
-                open={open}
-            >
-                <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    <ListItems classes={classes} />
-                </List>
-                <Divider />
-            </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth={false} className={classes.container}>
@@ -211,31 +385,47 @@ export default function Personal() {
                         <Route
                             exact
                             path="/personal"
-                            component={PersonalIndex}
-                        />
-                        <Route
-                            exact
-                            path="/personal/project/:projectId/products/:productId"
-                            component={PersonalProduct}
-                        />
-                        <Route
-                            exact
-                            path="/personal/projects"
-                            component={PersonalProjects}
+                            render={props => (
+                                <PersonalProjects
+                                    {...props}
+                                    user={user}
+                                    updateUser={updateUser}
+                                />
+                            )}
                         />
                         <Route
                             exact
                             path="/personal/profile"
-                            component={PersonalProfile}
+                            render={props => (
+                                <PersonalProfile
+                                    {...props}
+                                    user={user}
+                                    updateUser={updateUser}
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/personal/company"
+                            render={props => (
+                                <PersonalCompany
+                                    {...props}
+                                    company={company}
+                                    user={user}
+                                    updateUser={updateUser}
+                                />
+                            )}
                         />
                         <Route
                             exact
                             path="/personal/projects/:projectId"
-                            component={PersonalProject}
-                        />
-                        <Route
-                            path="/personal/folders/:folderId"
-                            component={PersonalFolder}
+                            render={props => (
+                                <PersonalProject
+                                    {...props}
+                                    user={user}
+                                    updateUser={updateUser}
+                                />
+                            )}
                         />
                     </Switch>
                 </Container>

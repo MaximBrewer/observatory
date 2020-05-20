@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'company_id'
     ];
 
     /**
@@ -40,5 +40,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getProfileAttribute()
     {
         return Profile::where('user_id', $this->id)->first();
+    }
+
+    public function companies() 
+    {
+        return $this->belongsToMany('App\Company', 'user_company');
+    }
+
+    public function company() 
+    {
+        return $this->belongsTo('App\Company');
     }
 }

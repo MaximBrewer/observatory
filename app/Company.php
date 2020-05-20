@@ -9,12 +9,25 @@ class Company extends Model
     //
     protected $fillable = [
         'title',
-        'manager_id'
+        'www',
+        'contact',
+        'phone',
+        'email'
     ];
 
-    public function getcManagerAttribute()
+    public function administrators()
     {
-        return User::find($this->manager_id);
+        return $this->belongsToMany('App\User')->wherePivot('role', 'administrator');
+    }
+
+    public function managers()
+    {
+        return $this->belongsToMany('App\User')->wherePivot('role', 'manager');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
     }
 
 }

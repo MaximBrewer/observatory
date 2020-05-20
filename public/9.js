@@ -1,15 +1,185 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
-/***/ "./resources/js/auth/PasswordResetForm.js":
-/*!************************************************!*\
-  !*** ./resources/js/auth/PasswordResetForm.js ***!
-  \************************************************/
+/***/ "./node_modules/@material-ui/core/esm/MenuItem/MenuItem.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/MenuItem/MenuItem.js ***!
+  \*****************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _ListItem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ListItem */ "./node_modules/@material-ui/core/esm/ListItem/index.js");
+
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({}, theme.typography.body1, Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      minHeight: 48,
+      paddingTop: 6,
+      paddingBottom: 6,
+      boxSizing: 'border-box',
+      width: 'auto',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap'
+    }, theme.breakpoints.up('sm'), {
+      minHeight: 'auto'
+    })),
+    // TODO v5: remove
+
+    /* Styles applied to the root element if `disableGutters={false}`. */
+    gutters: {},
+
+    /* Styles applied to the root element if `selected={true}`. */
+    selected: {},
+
+    /* Styles applied to the root element if dense. */
+    dense: Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({}, theme.typography.body2, {
+      minHeight: 'auto'
+    })
+  };
+};
+var MenuItem = react__WEBPACK_IMPORTED_MODULE_3__["forwardRef"](function MenuItem(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      component = _props$component === void 0 ? 'li' : _props$component,
+      _props$disableGutters = props.disableGutters,
+      disableGutters = _props$disableGutters === void 0 ? false : _props$disableGutters,
+      ListItemClasses = props.ListItemClasses,
+      _props$role = props.role,
+      role = _props$role === void 0 ? 'menuitem' : _props$role,
+      selected = props.selected,
+      tabIndexProp = props.tabIndex,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(props, ["classes", "className", "component", "disableGutters", "ListItemClasses", "role", "selected", "tabIndex"]);
+
+  var tabIndex;
+
+  if (!props.disabled) {
+    tabIndex = tabIndexProp !== undefined ? tabIndexProp : -1;
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__["createElement"](_ListItem__WEBPACK_IMPORTED_MODULE_7__["default"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    button: true,
+    role: role,
+    tabIndex: tabIndex,
+    component: component,
+    selected: selected,
+    disableGutters: disableGutters,
+    classes: Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({
+      dense: classes.dense
+    }, ListItemClasses),
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_5__["default"])(classes.root, className, selected && classes.selected, !disableGutters && classes.gutters),
+    ref: ref
+  }, other));
+});
+ true ? MenuItem.propTypes = {
+  /**
+   * Menu item contents.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.elementType,
+
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input will be used.
+   */
+  dense: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * @ignore
+   */
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * If `true`, the left and right padding is removed.
+   */
+  disableGutters: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * `classes` prop applied to the [`ListItem`](/api/list-item/) element.
+   */
+  ListItemClasses: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object,
+
+  /**
+   * @ignore
+   */
+  role: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
+
+  /**
+   * @ignore
+   */
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * @ignore
+   */
+  tabIndex: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.number
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_6__["default"])(styles, {
+  name: 'MuiMenuItem'
+})(MenuItem));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/MenuItem/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/MenuItem/index.js ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PasswordResetPage; });
+/* harmony import */ var _MenuItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/MenuItem.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _MenuItem__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/auth/RegisterPage.js":
+/*!*******************************************!*\
+  !*** ./resources/js/auth/RegisterPage.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RegisterPage; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -27,11 +197,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
 /* harmony import */ var _material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Box */ "./node_modules/@material-ui/core/esm/Box/index.js");
 /* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/esm/Grid/index.js");
-/* harmony import */ var _material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/icons/LockOutlined */ "./node_modules/@material-ui/icons/LockOutlined.js");
-/* harmony import */ var _material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
-/* harmony import */ var _layouts_Copyright__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../layouts/Copyright */ "./resources/js/layouts/Copyright.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
+/* harmony import */ var _material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/icons/LockOutlined */ "./node_modules/@material-ui/icons/LockOutlined.js");
+/* harmony import */ var _material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
+/* harmony import */ var _layouts_Copyright__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../layouts/Copyright */ "./resources/js/layouts/Copyright.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_FormHelperText__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @material-ui/core/FormHelperText */ "./node_modules/@material-ui/core/esm/FormHelperText/index.js");
+/* harmony import */ var _material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @material-ui/core/FormControl */ "./node_modules/@material-ui/core/esm/FormControl/index.js");
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/index.js");
+/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -63,7 +238,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_18__["makeStyles"])(function (theme) {
+
+
+
+
+
+var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_19__["makeStyles"])(function (theme) {
   return {
     root: {
       height: "100vh"
@@ -92,50 +272,89 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_18__["m
     },
     submit: {
       margin: theme.spacing(3, 0, 2)
+    },
+    formControl: {
+      minWidth: "100%"
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2)
     }
   };
 });
-function PasswordResetPage() {
+function RegisterPage() {
   var classes = useStyles();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+    name: {
+      value: '',
+      errors: null
+    },
+    last_name: {
+      value: '',
+      errors: null
+    },
+    phone: {
+      value: '',
+      errors: null
+    },
     email: {
-      value: !!window.email_fp ? window.email_fp : null,
+      value: '',
       errors: null
     },
     password_confirmation: {
-      value: null,
+      value: '',
       errors: null
     },
     password: {
-      value: null,
+      value: '',
       errors: null
     },
     errors: null
   }),
       _useState2 = _slicedToArray(_useState, 2),
-      auth = _useState2[0],
-      setAuthState = _useState2[1];
+      register = _useState2[0],
+      setRegisterState = _useState2[1];
 
   function handleChange(event) {
-    setAuthState({
+    setRegisterState({
+      name: event.target.name != "name" ? {
+        value: register.name.value,
+        errors: register.name.errors
+      } : {
+        value: event.target.value,
+        errors: !event.target.value ? [__("Field is required!")] : null
+      },
+      last_name: event.target.name != "last_name" ? {
+        value: register.last_name.value,
+        errors: register.last_name.errors
+      } : {
+        value: event.target.value,
+        errors: !event.target.value ? [__("Field is required!")] : null
+      },
+      phone: event.target.name != "phone" ? {
+        value: register.phone.value,
+        errors: register.phone.errors
+      } : {
+        value: event.target.value,
+        errors: !event.target.value ? [__("Field is required!")] : null
+      },
       email: event.target.name != "email" ? {
-        value: auth.email.value,
-        errors: auth.email.errors
+        value: register.email.value,
+        errors: register.email.errors
       } : {
         value: event.target.value,
         errors: !event.target.value ? [__("Field is required!")] : null
       },
       password: event.target.name != "password" ? {
-        value: auth.password.value,
-        errors: auth.password.errors
+        value: register.password.value,
+        errors: register.password.errors
       } : {
         value: event.target.value,
         errors: !event.target.value ? [__("Field is required!")] : null
       },
       password_confirmation: event.target.name != "password_confirmation" ? {
-        value: auth.password_confirmation.value,
-        errors: auth.password_confirmation.errors
+        value: register.password_confirmation.value,
+        errors: register.password_confirmation.errors
       } : {
         value: event.target.value,
         errors: !event.target.value ? [__("Field is required!")] : null
@@ -146,44 +365,71 @@ function PasswordResetPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setAuthState({
+    setRegisterState({
+      name: {
+        value: register.name.value,
+        errors: !register.name.value ? [__("Field is required!")] : register.name.errors
+      },
+      last_name: {
+        value: register.last_name.value,
+        errors: !register.last_name.value ? [__("Field is required!")] : register.last_name.errors
+      },
+      phone: {
+        value: register.phone.value,
+        errors: !register.phone.value ? [__("Field is required!")] : register.phone.errors
+      },
       email: {
-        value: auth.email.value,
-        errors: !auth.email.value ? [__("Field is required!")] : auth.email.errors
+        value: register.email.value,
+        errors: !register.email.value ? [__("Field is required!")] : register.email.errors
       },
       password: {
-        value: auth.password.value,
-        errors: !auth.password.value ? [__("Field is required!")] : auth.password.errors
+        value: register.password.value,
+        errors: !register.password.value ? [__("Field is required!")] : register.password.errors
       },
       password_confirmation: {
-        value: auth.password_confirmation.value,
-        errors: !auth.password_confirmation.value ? [__("Field is required!")] : auth.password_confirmation.errors
+        value: register.password_confirmation.value,
+        errors: !register.password_confirmation.value ? [__("Field is required!")] : register.password_confirmation.errors
       },
-      errors: auth.errors
+      errors: register.errors
     });
 
-    if (auth.email.value) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/password/reset", {
-        email: auth.email.value,
-        password: auth.password.value,
-        token: window.token_fp,
-        password_confirmation: auth.password_confirmation.value
+    if (register.name.value && register.email.value && // register.phone.value &&
+    register.password.value && register.password_confirmation.value) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/register", {
+        name: register.name.value,
+        last_name: register.last_name.value,
+        email: register.email.value,
+        phone: register.phone.value,
+        password: register.password.value,
+        password_confirmation: register.password_confirmation.value
       }).then(function (res) {
-        if (res.data) {
-          location.href = '/personal';
+        if (res.data && res.data.redirectTo) {
+          location.href = res.data.redirectTo;
         }
       })["catch"](function (err) {
-        if (err.response && err.response.data && err.response.data.errors) setAuthState({
+        if (err.response && err.response.data && err.response.data.errors) setRegisterState({
+          name: {
+            value: register.name.value,
+            errors: err.response.data.errors.name
+          },
+          last_name: {
+            value: register.last_name.value,
+            errors: err.response.data.errors.last_name
+          },
+          phone: {
+            value: register.phone.value,
+            errors: err.response.data.errors.phone
+          },
           email: {
-            value: auth.email.value,
+            value: register.email.value,
             errors: err.response.data.errors.email
           },
           password: {
-            value: auth.password.value,
+            value: register.password.value,
             errors: err.response.data.errors.password
           },
           password_confirmation: {
-            value: auth.password_confirmation.value,
+            value: register.password_confirmation.value,
             errors: err.response.data.errors.password_confirmation
           },
           errors: [err.response.data.message]
@@ -214,73 +460,109 @@ function PasswordResetPage() {
     className: classes.paper
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
     className: classes.avatar
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_15___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_icons_LockOutlined__WEBPACK_IMPORTED_MODULE_16___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_17__["default"], {
     component: "h1",
     variant: "h5"
-  }, __("Reset Password")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+  }, __("Sign up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: classes.form,
     noValidate: true,
     onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-    type: "hidden",
-    name: "token",
-    value: window.token_fp
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    container: true,
+    spacing: 2
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true,
+    xs: 12,
+    sm: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "outlined",
-    margin: "normal",
     required: true,
     fullWidth: true,
-    value: auth.email.value,
-    id: "email",
-    readOnly: true,
-    error: !!auth.email.errors && !!auth.email.errors.length,
-    helperText: !!auth.email.errors && !!auth.email.errors.length ? auth.email.errors.join(", ") : "",
-    label: __("E-mail"),
-    name: "email",
-    type: "text",
-    autoFocus: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    id: "name",
+    error: !!register.name.errors && !!register.name.errors.length,
+    helperText: !!register.name.errors && !!register.name.errors.length ? register.name.errors.join(", ") : "",
+    label: __("Name"),
+    name: "name",
+    autoComplete: "name",
+    onChange: handleChange
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true,
+    xs: 12,
+    sm: 6
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "outlined",
-    margin: "normal",
+    required: true,
+    fullWidth: true,
+    id: "lastName",
+    error: !!register.last_name.errors && !!register.last_name.errors.length,
+    helperText: !!register.last_name.errors && !!register.last_name.errors.length ? register.last_name.errors.join(", ") : "",
+    label: __("Last Name"),
+    name: "last_name",
+    autoComplete: "lname",
+    onChange: handleChange
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    variant: "outlined",
+    required: true,
+    fullWidth: true,
+    id: "email",
+    label: __("Email Address"),
+    name: "email",
+    error: !!register.email.errors && !!register.email.errors.length,
+    helperText: !!register.email.errors && !!register.email.errors.length ? register.email.errors.join(", ") : "",
+    autoComplete: "email",
+    onChange: handleChange
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    variant: "outlined",
     required: true,
     fullWidth: true,
     name: "password",
-    error: !!auth.password.errors && !!auth.password.errors.length,
-    helperText: !!auth.password.errors && !!auth.password.errors.length ? auth.password.errors.join(", ") : "",
+    error: !!register.password.errors && !!register.password.errors.length,
+    helperText: !!register.password.errors && !!register.password.errors.length ? register.password.errors.join(", ") : "",
     label: __("Password"),
     type: "password",
     id: "password",
     autoComplete: "new-password",
     onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "outlined",
-    margin: "normal",
     required: true,
     fullWidth: true,
-    error: !!auth.password_confirmation.errors && !!auth.password_confirmation.errors.length,
-    helperText: !!auth.password_confirmation.errors && !!auth.password_confirmation.errors.length ? auth.password_confirmation.errors.join(", ") : "",
+    error: !!register.password_confirmation.errors && !!register.password_confirmation.errors.length,
+    helperText: !!register.password_confirmation.errors && !!register.password_confirmation.errors.length ? register.password_confirmation.errors.join(", ") : "",
     name: "password_confirmation",
     label: __("Confirm password"),
     type: "password",
     id: "passwordConfirm",
     autoComplete: "new-password",
     onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
     color: "primary",
     className: classes.submit
-  }, __("Reset Password")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, __("Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    container: true,
+    justify: "flex-end"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    component: react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Link"],
+    to: "/login",
+    variant: "body2"
+  }, __("Already have an account? Sign in")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_13__["default"], {
     mt: 5
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_layouts_Copyright__WEBPACK_IMPORTED_MODULE_17__["default"], null))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_layouts_Copyright__WEBPACK_IMPORTED_MODULE_18__["default"], null))))));
 }
-
-var AlertSuccess = function AlertSuccess() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    severity: "success"
-  }, __("Мы отправили вам ссылку для сброса пароля по электронной почте!"));
-};
 
 /***/ })
 

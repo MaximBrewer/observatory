@@ -18,20 +18,12 @@ class UserTableSeeder extends Seeder
         User::create([
             'name' => 'pimax1978@icloud.com',
             'email' => 'pimax1978@icloud.com',
-            'password' => '$2y$10$jHWHMwOAs4XiYJLSn9VpDOFvDESFN1Fcl0AgsXpovFRK6BUiHvQUG',
-            'remember_token' => 'HdOms5jKLWWL7uDe222XPfZJPHx1PKfqCTMaYhDF4RyJYva0u6vssZ4oVHM6',
+            'password' => '$2y$10$y8One5B28IpcrUiv10dqvOkRCeXsRQ4VuKuh4hv4sxd2wr4LCmA/i',
+            'remember_token' => '6el2xh3ZFycoxTyQxO8Lg91AeeKMwS0HBo2glbpiBb6ryg9v8G73yBjUcaVT',
         ]);
-
-
-        Company::create([
-            'title' => 'My Company',
-            'manager_id' => '1',
-        ]);
-
 
         Profile::create([
             'user_id' => '1',
-            'company_id' => '1',
             'firstname' => 'Максим',
             'lastname' => 'Пивоваров',
         ]);
