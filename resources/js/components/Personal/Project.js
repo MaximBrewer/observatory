@@ -307,11 +307,11 @@ function ProductLogs(props) {
                             <TableCell align="center">
                                 {row.created_at
                                     ? new Date(
-                                          product.log.created_at
+                                        row.created_at
                                       ).toLocaleDateString() +
                                       " " +
                                       new Date(
-                                          product.log.created_at
+                                        row.created_at
                                       ).toLocaleTimeString()
                                     : "N/A"}
                             </TableCell>
