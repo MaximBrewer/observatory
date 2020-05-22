@@ -42,6 +42,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import {
     History as HistoryIcon,
+    PlaylistAdd as PlaylistAddIcon,
     Folder as FolderIcon,
     Dashboard as DashboardIcon,
     CreateNewFolder as CreateNewFolderIcon,
@@ -423,6 +424,37 @@ export default function Project(props) {
         project: {}
     });
 
+    const onChange = event => {
+        let elem = event.target;
+        confirm({
+            description: __("Are you shure?")
+        }).then(() => {
+            if (!!elem.files[0]) {
+                let formData = new FormData();
+                formData.append("file", elem.files[0]);
+                axios
+                    .post(
+                        "/api/project/" + props.match.params.projectId + "/xls",
+                        formData
+                    )
+                    .then(res => {
+                        setState(prevState => {
+                            const { products } = res.data;
+                            return { ...prevState, products };
+                        });
+                    })
+                    .catch(err => {
+                        if (
+                            err.response &&
+                            err.response.data &&
+                            err.response.data.errors
+                        ) {
+                        }
+                    });
+            }
+        });
+    };
+
     useEffect(() => {
         api.call(
             "get",
@@ -548,6 +580,21 @@ export default function Project(props) {
                         >
                             <AddIcon />
                         </IconButton>
+                        <IconButton
+                            color="primary"
+                            component="label"
+                            htmlFor="uploadXlsFile"
+                        >
+                            <input
+                                color="primary"
+                                accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                type="file"
+                                onChange={onChange}
+                                id="uploadXlsFile"
+                                style={{ display: "none" }}
+                            />
+                            <PlaylistAddIcon />
+                        </IconButton>
                     </TableCell>
                 </TableRow>
                 <AddProduct
@@ -657,6 +704,21 @@ export default function Project(props) {
                             }}
                         >
                             <AddIcon />
+                        </IconButton>
+                        <IconButton
+                            color="primary"
+                            component="label"
+                            htmlFor="uploadXlsFile"
+                        >
+                            <input
+                                color="primary"
+                                accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                type="file"
+                                onChange={onChange}
+                                id="uploadXlsFile"
+                                style={{ display: "none" }}
+                            />
+                            <PlaylistAddIcon />
                         </IconButton>
                     </TableCell>
                 </TableRow>
