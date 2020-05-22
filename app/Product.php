@@ -28,7 +28,7 @@ class Product extends Model
 
     public function logs()
     {
-        return $this->hasMany('App\ProductLog')->orderBy('created_at');
+        return $this->hasMany('App\ProductLog')->orderBy('id', 'DESC');
     }
 
     public function getLogAttribute()
