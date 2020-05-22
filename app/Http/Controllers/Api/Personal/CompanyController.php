@@ -8,6 +8,7 @@ use App\Company;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Http\Resources\User as UserResource;
+use App\Http\Resources\CompanyFull as CompanyFullResource;
 
 class CompanyController extends Controller
 {
@@ -20,17 +21,29 @@ class CompanyController extends Controller
     {
         //
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function invite()
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showFull()
     {
         //
+        $user = User::find(Auth::user()->id);
+        $company = Company::findOrFail($user->company_id);
+        
+        return ['company' => new CompanyFullResource($company)];
     }
-
     /**
      * Show the form for creating a new resource.
      *

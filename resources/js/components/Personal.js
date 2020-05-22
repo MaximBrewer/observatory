@@ -57,6 +57,7 @@ import PersonalFolder from "./Personal/Folder";
 import PersonalProfile from "./Personal/Profile";
 import PersonalCompanyAdd from "./Personal/CompanyAdd";
 import PersonalCompanyEdit from "./Personal/CompanyEdit";
+import PersonalCompany from "./Personal/Company";
 import Dialog from "@material-ui/core/Dialog";
 
 import Grow from "@material-ui/core/Grow";
@@ -316,23 +317,13 @@ export default function Personal(props) {
                                                     )
                                                 )}
                                                 <Divider />
-                                                {user.company &&
-                                                (user.company.role ==
-                                                    "administrator" ||
-                                                    user.company.role ==
-                                                        "manager") ? (
-                                                    <MenuItem
-                                                        to="/personal/company/invait"
-                                                        component={Link}
-                                                        onClick={
-                                                            handleCloseCompany
-                                                        }
-                                                    >
-                                                        {__("Invait")}
-                                                    </MenuItem>
-                                                ) : (
-                                                    ""
-                                                )}
+                                                <MenuItem
+                                                    to="/personal/company"
+                                                    component={Link}
+                                                    onClick={handleCloseCompany}
+                                                >
+                                                    {__("Show Company")}
+                                                </MenuItem>
                                                 {user.company &&
                                                 (user.company.role ==
                                                     "administrator" ||
@@ -443,6 +434,17 @@ export default function Personal(props) {
                             render={props => (
                                 <PersonalCompanyAdd
                                     {...props}
+                                    updateUser={updateUser}
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/personal/company"
+                            render={props => (
+                                <PersonalCompany
+                                    {...props}
+                                    user={user}
                                     updateUser={updateUser}
                                 />
                             )}

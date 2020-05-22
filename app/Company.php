@@ -17,17 +17,22 @@ class Company extends Model
 
     public function administrators()
     {
-        return $this->belongsToMany('App\User')->wherePivot('role', 'administrator');
+        return $this->belongsToMany('App\User', 'user_company')->wherePivot('role', 'administrator');
     }
 
     public function managers()
     {
-        return $this->belongsToMany('App\User')->wherePivot('role', 'manager');
+        return $this->belongsToMany('App\User', 'user_company')->wherePivot('role', 'manager');
     }
 
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'user_company');
+    }
+
+    public function invites()
+    {
+        return $this->hasMany('App\Invite');
     }
 
 }
