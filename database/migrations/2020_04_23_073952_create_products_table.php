@@ -18,8 +18,10 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('project_id');
             $table->string('article');
             $table->string('title');
+            $table->string('brand');
             $table->string('url', 1023);
             $table->integer('price');
+            $table->boolean('active');
             $table->integer('higher_deviation');
             $table->integer('lower_deviation');
             $table->integer('frequency');

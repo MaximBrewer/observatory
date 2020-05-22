@@ -7,7 +7,7 @@
     "of": "из",
     "rows": "строк",
     "Are you sure you want to delete project?": "Вы уверены что хотите удалить проект?",
-
+    "Brand": "Бренд",
     "Sign Up": "Регистрация",
     "Sign up": "Регистрация",
     "Sign in": "Вход",
@@ -47,7 +47,7 @@
     "Observatory": "Обсерватория",
     "Logout": "Выйти",
     "Profile": "Профиль",
-    "Choose your company" : "Выберите свою компанию",
+    "Choose your company": "Выберите свою компанию",
     "or add new": "или добавьте новую",
     "Choose company or fill this field!": "Выберите компанию или заполните это поле!",
     "Choose company or fill text field!": "Выберите компанию или заполните поле Компания!",
@@ -76,5 +76,10 @@
     "Contact Person": "Контакное лицо",
     "Phone": "Телефон",
     "E-mail": "E-mail",
-    "Are you sure you want to delete the folder?": "Вы уверены что хотите удалить папку?"
+    "Companies": "Компании",
+    "Save": "Сохранить",
+    "Date & Time": "Дата",
+    "Site Price": "Цена на сайте",
+    "Are you sure you want to delete the folder?": "Вы уверены что хотите удалить папку?",
+    "Are you sure you want to delete the product?": "Вы уверены что хотите удалить товар?"
 }

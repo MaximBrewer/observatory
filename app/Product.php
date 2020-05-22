@@ -13,7 +13,7 @@ class Product extends Model
      */
     protected $fillable = [
         'title', 'project_id', 'url', 'article',
-        'price', 'higher_deviation', 'lower_deviation', 'frequency'
+        'price', 'higher_deviation', 'lower_deviation', 'frequency', 'brand'
     ];
 
     protected $appends = ['last_price'];
@@ -22,13 +22,20 @@ class Product extends Model
     public function getLastPriceAttribute()
     {
         $model = ProductLog::where('product_id', 'id')->orderBy('id', 'DESC')->first();
-        if($model) return $model->site_price;
+        if ($model) return $model->site_price;
         return '';
     }
 
     public function logs()
     {
-        return $this->hasMany('App\ProductLog');
+        return $this->hasMany('App\ProductLog')->orderBy('created_at');
+    }
+
+    public function getLogAttribute()
+    {
+        if (count($this->logs))
+            return $this->logs[0];
+        else return null;
     }
 
     public function project()
@@ -38,32 +45,31 @@ class Product extends Model
 
     public function setLowerDeviationAttribute($value)
     {
-        $this->attributes['lower_deviation'] = ceil((float)$value * 100);
+        $this->attributes['lower_deviation'] = ceil((float) $value * 100);
     }
 
     public function getLowerDeviationAttribute($value)
     {
-        return (float)$value / 100;
+        return (float) $value / 100;
     }
 
     public function setHigherDeviationAttribute($value)
     {
-        $this->attributes['higher_deviation'] = ceil((float)$value * 100);
+        $this->attributes['higher_deviation'] = ceil((float) $value * 100);
     }
 
     public function getHigherDeviationAttribute($value)
     {
-        return (float)$value / 100;
+        return (float) $value / 100;
     }
 
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = ceil((float)$value * 100);
+        $this->attributes['price'] = ceil((float) $value * 100);
     }
 
     public function getPriceAttribute($value)
     {
-        return (float)$value / 100;
+        return (float) $value / 100;
     }
-
 }

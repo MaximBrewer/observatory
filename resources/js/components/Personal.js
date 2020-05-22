@@ -17,41 +17,40 @@ import {
     Dashboard as DashboardIcon,
     CreateNewFolder as CreateNewFolderIcon,
     Dehaze as DehazeIcon,
-    Business as BusinessIcon
+    Business as BusinessIcon,
+    Edit as EditIcon,
+    AccountCircle as AccountCircleIcon,
+    PersonAdd as PersonAddIcon,
+    Menu as MenuIcon,
+    ChevronLeft as ChevronLeftIcon,
+    Notifications as NotificationsIcon,
+    ExitToApp as ExitToAppIcon,
+    ArrowDropDown as ArrowDropDownIcon,
+    Add as AddIcon
 } from "@material-ui/icons";
 
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import IconButton from "@material-ui/core/IconButton";
+
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import EditIcon from "@material-ui/icons/Edit";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-
-import IconButton from "@material-ui/core/IconButton";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import AddIcon from "@material-ui/icons/Add";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import ListItems from "./Personal/components/ListItems";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import PersonalIndex from "./Personal/Index";
-import PersonalProduct from "./Personal/Product";
 import PersonalProjects from "./Personal/Projects";
 import PersonalProject from "./Personal/Project";
 import PersonalFolder from "./Personal/Folder";
@@ -145,8 +144,8 @@ export default function Personal(props) {
                 updateUser(res.data.user);
                 setOpenUserMenu(false);
                 setOpenCompanyMenu(false);
-                if(location.pathname == '/personal') history.replace('/')
-                history.replace('/personal')
+                if (location.pathname == "/personal") history.replace("/");
+                history.replace("/personal");
             })
             .catch(err => {});
     };
@@ -204,7 +203,7 @@ export default function Personal(props) {
                         noWrap
                         className={classes.title}
                     >
-                        {""}
+                        {user.company ? user.company.title : ""}
                     </Typography>
 
                     <ButtonGroup
@@ -317,7 +316,11 @@ export default function Personal(props) {
                                                     )
                                                 )}
                                                 <Divider />
-                                                {user.company ? (
+                                                {user.company &&
+                                                (user.company.role ==
+                                                    "administrator" ||
+                                                    user.company.role ==
+                                                        "manager") ? (
                                                     <MenuItem
                                                         to="/personal/company/invait"
                                                         component={Link}
@@ -330,7 +333,11 @@ export default function Personal(props) {
                                                 ) : (
                                                     ""
                                                 )}
-                                                {user.company ? (
+                                                {user.company &&
+                                                (user.company.role ==
+                                                    "administrator" ||
+                                                    user.company.role ==
+                                                        "manager") ? (
                                                     <MenuItem
                                                         to="/personal/company/edit"
                                                         component={Link}

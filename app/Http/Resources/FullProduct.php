@@ -19,6 +19,8 @@ class FullProduct extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'url' => $this->url,
+            'active' => $this->active,
+            'brand' => $this->brand,
             'price' => $this->price,
             'last_price' => $this->last_price,
             'project' => [

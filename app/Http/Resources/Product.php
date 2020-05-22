@@ -17,6 +17,8 @@ class Product extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'active' => $this->active,
+            'brand' => $this->brand,
             'article' => $this->article,
             'url' => $this->url,
             'price' => $this->price,
@@ -26,6 +28,7 @@ class Product extends JsonResource
                 'id' => $this->project->id,
                 'title' => $this->project->title
             ],
+            'log' => $this->log,
             'project_id' => $this->project->id,
             'higher_deviation' => $this->higher_deviation,
             'lower_deviation' => $this->lower_deviation,

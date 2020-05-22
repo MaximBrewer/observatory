@@ -9,15 +9,16 @@ use App\User;
 use Exception;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use App\Http\Resources\User as UserResource;
 
 class ProfileController extends Controller
 {
     //
-    public function setAvatar(Request $r)
+    public function setAvatar(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
         try {
-            $img = Image::make($r->post('image'));
+            $img = Image::make($request->post('image'));
             $img->fit(160, 160);
             @mkdir(storage_path('app/public/profiles') . DIRECTORY_SEPARATOR . $user->profile->id, 0777, true);
             $filename = Str::random(20);
@@ -30,8 +31,34 @@ class ProfileController extends Controller
         }
     }
 
-    public function web(Request $r, $action)
+    public function web(Request $request, $action)
     {
-        return $this->$action($r);
+        return $this->$action($request);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $model = $user->profile;
+
+        $attributes = $request->all();
+
+        $request->validate([
+            "firstname" => "required|min:2",
+            "lastname" => "required|min:2",
+            "phone" => "required|min:6",
+        ]);
+        
+        $model->update($attributes);
+        $user = User::find(Auth::user()->id);
+
+        return ['user' => new UserResource($user)];
     }
 }

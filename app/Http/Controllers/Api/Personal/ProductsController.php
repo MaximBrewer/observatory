@@ -31,9 +31,13 @@ class ProductsController extends Controller
      */
     public function index($project_id)
     {
-        return ProductResource::collection(Project::find($project_id)->products);
+        return ['products' => ProductResource::collection(Project::find($project_id)->products)];
     }
 
+
+    public function getLogs(){
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -89,7 +93,7 @@ class ProductsController extends Controller
             $start++;
         }
 
-        return ProductResource::collection(Project::find($project_id)->products);
+        return ['products' => ProductResource::collection(Project::find($project_id)->products)];
     }
 
 
@@ -105,6 +109,7 @@ class ProductsController extends Controller
             'article' => $request->post('article'),
             'title' => $request->post('title'),
             'url' => $request->post('url'),
+            'brand' => $request->post('brand'),
             'price' => $request->post('price'),
             'higher_deviation' => $request->post('higher_deviation'),
             'lower_deviation' => $request->post('lower_deviation'),
@@ -112,7 +117,7 @@ class ProductsController extends Controller
             'project_id' => $project_id,
         ]);
 
-        return ProductResource::collection(Project::find($project_id)->products);
+        return ['products' => ProductResource::collection(Project::find($project_id)->products)];
     }
 
     /**
@@ -138,7 +143,7 @@ class ProductsController extends Controller
     {
         $model = Product::findOrFail($id);
         $model->update($request->all());
-        return ProductResource::collection(Project::find($project_id)->products);
+        return ['products' => ProductResource::collection(Project::find($project_id)->products)];
     }
 
     /**
@@ -151,6 +156,6 @@ class ProductsController extends Controller
     {
         $model = Product::findOrFail($id);
         $model->delete();
-        return ProductResource::collection(Project::find($project_id)->products);
+        return ['products' => ProductResource::collection(Project::find($project_id)->products)];
     }
 }

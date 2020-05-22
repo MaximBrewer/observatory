@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductLog extends Model
 {
     //
+    protected $touches = ['product'];
 
     /**
      * The attributes that are mass assignable.
@@ -22,23 +23,23 @@ class ProductLog extends Model
         return $this->belongsTo('App\Product');
     }
 
-    public function setPriceAttribute($value)
+    public function setSitePriceAttribute($value)
     {
-        $this->attributes['price'] = ceil($value * 100);
+        $value ? $this->attributes['site_price'] = ceil($value * 100) : null;
     }
 
-    public function getPriceAttribute($value)
+    public function getSitePriceAttribute($value)
     {
-        return (float)$value / 100;
+        return $value ? (float)$value / 100 : null;
     }
 
     public function setDeviationAttribute($value)
     {
-        $this->attributes['deviation'] = ceil($value * 100);
+        $value ? $this->attributes['deviation'] = ceil($value * 100) : null;
     }
 
     public function getDeviationAttribute($value)
     {
-        return (float)$value / 100;
+        return $value ? (float)$value / 100 : null;
     }
 }

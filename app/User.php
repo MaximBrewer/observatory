@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function companies() 
     {
-        return $this->belongsToMany('App\Company', 'user_company');
+        return $this->belongsToMany('App\Company', 'user_company')->withPivot('role');
     }
 
     public function company() 
