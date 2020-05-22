@@ -305,15 +305,7 @@ function ProductLogs(props) {
                     {product.logs.map((row, index) => (
                         <TableRow key={index}>
                             <TableCell align="center">
-                                {row.created_at
-                                    ? new Date(
-                                        row.created_at
-                                      ).toLocaleDateString() +
-                                      " " +
-                                      new Date(
-                                        row.created_at
-                                      ).toLocaleTimeString()
-                                    : "N/A"}
+                                {row.created_at}
                             </TableCell>
                             <TableCell align="center">
                                 {row.site_price ? row.site_price : "N/A"}
@@ -612,22 +604,22 @@ export default function Project(props) {
                             <TableCell>{product.article}</TableCell>
                             <TableCell>{product.title}</TableCell>
                             <TableCell>
-                                {product.log
-                                    ? new Date(
-                                          product.log.created_at
-                                      ).toLocaleDateString() +
-                                      " " +
-                                      new Date(
-                                          product.log.created_at
-                                      ).toLocaleTimeString()
-                                    : "N/A"}
+                                {product.log ? product.log.created_at : "N/A"}
                             </TableCell>
                             <TableCell>{product.price}</TableCell>
                             <TableCell>
-                                {product.log ? (product.log.site_price ? product.log.site_price : "N/A") : "N/A"}
+                                {product.log
+                                    ? product.log.site_price
+                                        ? product.log.site_price
+                                        : "N/A"
+                                    : "N/A"}
                             </TableCell>
                             <TableCell>
-                                {product.log ? (product.log.deviation ? product.log.deviation : "N/A") : "N/A"}
+                                {product.log
+                                    ? product.log.deviation
+                                        ? product.log.deviation
+                                        : "N/A"
+                                    : "N/A"}
                             </TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>

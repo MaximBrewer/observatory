@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\ProductLog as ProductLogResource;
 
 class Product extends JsonResource
 {
@@ -28,7 +29,7 @@ class Product extends JsonResource
                 'id' => $this->project->id,
                 'title' => $this->project->title
             ],
-            'log' => $this->log,
+            'log' => new ProductLogResource($this->log),
             'project_id' => $this->project->id,
             'higher_deviation' => $this->higher_deviation,
             'lower_deviation' => $this->lower_deviation,
