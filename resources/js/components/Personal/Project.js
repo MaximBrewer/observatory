@@ -316,10 +316,10 @@ function ProductLogs(props) {
                                     : "N/A"}
                             </TableCell>
                             <TableCell align="center">
-                                {row.site_price}
+                                {row.site_price ? row.site_price : "N/A"}
                             </TableCell>
                             <TableCell align="center">
-                                {row.deviation}
+                                {row.deviation ? row.deviation : "N/A"}
                             </TableCell>
                         </TableRow>
                     ))}
@@ -624,10 +624,10 @@ export default function Project(props) {
                             </TableCell>
                             <TableCell>{product.price}</TableCell>
                             <TableCell>
-                                {product.log ? product.log.site_price : "N/A"}
+                                {product.log ? (product.log.site_price ? product.log.site_price : "N/A") : "N/A"}
                             </TableCell>
                             <TableCell>
-                                {product.log ? product.log.deviation : "N/A"}
+                                {product.log ? (product.log.deviation ? product.log.deviation : "N/A") : "N/A"}
                             </TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
