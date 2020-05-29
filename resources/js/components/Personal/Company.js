@@ -230,7 +230,7 @@ export default function Company(props) {
                         ))}
                     </List>
                     <Typography variant="h5" color="primary" gutterBottom>
-                        {__("Invates")}
+                        {__("Invites")}
                     </Typography>
                     <List className={classes.root}>
                         {company.invites.map((model, index) => (

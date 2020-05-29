@@ -91,6 +91,14 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen
         })
     },
+    appBarShift: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(["width", "margin"], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen
+        })
+    },
     menuButton: {
         marginRight: 36
     },
@@ -99,6 +107,26 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1
+    },
+    drawerPaper: {
+        position: "relative",
+        whiteSpace: "nowrap",
+        width: drawerWidth,
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen
+        })
+    },
+    drawerPaperClose: {
+        overflowX: "hidden",
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up("sm")]: {
+            width: theme.spacing(9)
+        }
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -191,12 +219,31 @@ export default function Personal(props) {
             })
             .catch(err => {});
     };
+    const [open, setOpen] = React.useState(false);
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="absolute" className={classes.appBar}>
+            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        className={clsx(
+                            classes.menuButton,
+                            open && classes.menuButtonHidden
+                        )}
+                    >
+                    <MenuIcon />
+                </IconButton>
                     <Typography
                         component="h1"
                         variant="h6"
@@ -402,6 +449,27 @@ export default function Personal(props) {
                     </Popper>
                 </Toolbar>
             </AppBar>
+            <Drawer
+                variant="permanent"
+                classes={{
+                    paper: clsx(
+                        classes.drawerPaper,
+                        !open && classes.drawerPaperClose
+                    )
+                }}
+                open={open}
+            >
+                <div className={classes.toolbarIcon}>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </div>
+                <Divider />
+                <List>
+                    <ListItems classes={classes} />
+                </List>
+                <Divider />
+            </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth={false} className={classes.container}>

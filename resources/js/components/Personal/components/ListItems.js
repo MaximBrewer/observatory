@@ -47,34 +47,6 @@ export default function ListItems(props) {
 
     const confirm = useConfirm();
     const classes = useStyles();
-
-    const [folder, setFolder] = React.useState("");
-    const [open, setOpen] = React.useState(false);
-    const [folders, setFolders] = React.useState([]);
-
-    const noCompanyRoute = event => {
-        confirm({
-            description: (
-                <React.Fragment>
-                    <Typography style={{ textAlign: "center" }}>
-                        <ErrorOutlineIcon
-                            style={{ fontSize: 80 }}
-                            color="error"
-                        />
-                    </Typography>
-                    <Typography style={{ textAlign: "center" }} variant="h5">
-                        {__("You have no company!")}
-                    </Typography>
-                </React.Fragment>
-            ),
-            dialogProps: { maxWidth: "xs" },
-            title: "",
-            confirmationText: __("Create"),
-            cancellationText: __("Cancel")
-        })
-            .then(() => {})
-            .catch(() => {});
-    };
     return (
         <div>
             <CssBaseline />
@@ -90,29 +62,6 @@ export default function ListItems(props) {
                     <ListItemText primary={window.__("Dashboard")} />
                 </ListItem>
             </LinkUI>
-            {user.company ? (
-                <LinkUI
-                    to="/personal/projects"
-                    component={Link}
-                    className={classes.listItem}
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DehazeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={window.__("All Projects")} />
-                    </ListItem>
-                </LinkUI>
-            ) : (
-                <LinkUI className={classes.listItem} onClick={noCompanyRoute}>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DehazeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={window.__("All Projects")} />
-                    </ListItem>
-                </LinkUI>
-            )}
             <Divider />
             <LinkUI
                 to="/personal/company"

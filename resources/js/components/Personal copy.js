@@ -143,12 +143,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const options = [
-    "Create a merge commit",
-    "Squash and merge",
-    "Rebase and merge"
-];
-
 export default function Personal(props) {
     const { user } = props;
 
@@ -159,9 +153,6 @@ export default function Personal(props) {
 
     const [openc, setOpenc] = React.useState(false);
 
-    const handleClick = () => {
-        console.info(`You clicked ${options[selectedIndex]}`);
-    };
 
     const changeCompany = (event, index, company) => {
         setSelectedIndex(index);
