@@ -106,7 +106,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 function FormProject(props) {
-    const { project, updateState } = props;
+    const { project, updateState, tropened } = props;
     const [form, setForm] = React.useState(project);
     const classes = useStyles();
     const handleChange = event => {
@@ -128,13 +128,19 @@ function FormProject(props) {
         if (!!form.id)
             api.call("patch", "/api/projects/" + form.id, form)
                 .then(res => {
-                    updateState(res.data);
+                    for (let g in tropened) {
+                        tropened[g] = false;
+                    }
+                    updateState({ tropened, ...res.data });
                 })
                 .catch(err => {});
         else
             api.call("post", "/api/projects", form)
                 .then(res => {
-                    updateState(res.data);
+                    for (let g in tropened) {
+                        tropened[g] = false;
+                    }
+                    updateState({ tropened, ...res.data });
                 })
                 .catch(err => {});
     };
@@ -303,6 +309,7 @@ function AddProject(props) {
                 >
                     <Box margin={1}>
                         <FormProject
+                            tropened={tropened}
                             project={project}
                             updateState={updateState}
                         />
@@ -329,6 +336,7 @@ function UpdateProject(props) {
                 >
                     <Box margin={1}>
                         <FormProject
+                            tropened={tropened}
                             project={project}
                             updateState={updateState}
                         />
@@ -348,7 +356,7 @@ function FolderTable(props) {
         tropened,
         tid
     } = props;
-    const addProject = () => {};
+
     const classes = useStyles();
 
     return projects.length ? (
@@ -625,8 +633,6 @@ export default function Projects() {
             return { ...prevState, ...state };
         });
     };
-
-    const addProject = () => {};
 
     const deleteProject = id => {
         confirm({
