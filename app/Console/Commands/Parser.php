@@ -89,6 +89,8 @@ class Parser extends Command
                         // $proxies = json_decode(file_get_contents('proxies.json', true));
                         // $proxy_ip = $proxies[0]->name;
                         $proxy_ip = '37.203.242.220:10029';
+                        $proxy_ip = '37.203.242.221:11067';
+
                         $proxyauth = 'pimax9746:a3f847';
                         $ch = curl_init($product['purl']);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
